@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.pawguards"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.pawguards"
@@ -48,8 +48,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-firestore:24.10.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")
-
-
 
     testImplementation("junit:junit:4.13.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
