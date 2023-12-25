@@ -15,6 +15,11 @@
         android:theme="@style/Theme.PawGuards"
         tools:targetApi="31">
         <activity
+            android:name=".ReplacerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_replacer"
+            android:theme="@style/Theme.PawGuards" />
+        <activity
             android:name=".FragmentReplaceActivity"
             android:exported="false" />
         <activity

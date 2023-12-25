@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PAW GUARDS"
+            android:text="STRONG PAWS"
             android:layout_alignParentStart="true"
             android:textAlignment="center"
             android:fontFamily="SeoulHangang CB"
@@ -83,7 +83,7 @@
             android:hint="password" />
 
         <EditText
-            android:id="@+id/confirmPassSignUp"
+            android:id="@+id/passConfSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -98,6 +98,13 @@
             android:textAlignment="center"
             android:textSize="12dp"
             android:text="By registering you are agreeing to our \nTerms of use and privacy policy." />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/signupBtn"
