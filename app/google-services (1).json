@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "582233272674",
+    "project_id": "paw-guards",
+    "storage_bucket": "paw-guards.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582233272674:android:f7576b186d78bcebdefc3b",
+        "android_client_info": {
+          "package_name": "com.example.pawguards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582233272674-pikqojgosas68k59g45h5h6pah928i3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pawguards",
+            "certificate_hash": "f1492779d2f2caf2c2b4c1efb404d6155b353345"
+          }
+        },
+        {
+          "client_id": "582233272674-871q8bbiom3qa2bm3j4gv50rfv42i8mr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIhT8vUp2-lT-MkWqB-RfZvSHfE2fRozY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582233272674-871q8bbiom3qa2bm3j4gv50rfv42i8mr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
