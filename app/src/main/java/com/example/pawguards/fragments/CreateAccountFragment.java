@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pawguards.FragmentReplaceActivity;
 import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -85,7 +85,17 @@ public class CreateAccountFragment extends Fragment {
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentReplaceActivity) getActivity()).setFragment(new LoginFragment());
+
+                Fragment fragment = new LoginFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                if (fragment instanceof CreateAccountFragment) {
+                    fragmentTransaction.addToBackStack(null);
+                }
+
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
             }
         });
 
