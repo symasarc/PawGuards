@@ -12,21 +12,21 @@
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cat_dog_ic"
+            android:layout_width="80dp"
+            android:layout_height="65dp"
             android:layout_marginTop="70dp"
-            android:layout_marginBottom="64dp"/>
+            android:layout_marginBottom="64dp"
+            android:src="@drawable/cat_dog_ic" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="STRONG PAWS"
+            android:text="X"
             android:layout_alignParentStart="true"
             android:textAlignment="center"
             android:fontFamily="SeoulHangang CB"
             android:textColor="@color/colorPrimary"
-            android:textSize="64sp"
+            android:textSize="10sp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:textStyle="bold" />

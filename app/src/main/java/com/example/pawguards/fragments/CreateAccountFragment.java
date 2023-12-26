@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pawguards.FragmentReplaceActivity;
 import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +46,6 @@ public class CreateAccountFragment extends Fragment {
     public CreateAccountFragment() {
         // Required empty public constructor
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +55,9 @@ public class CreateAccountFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d("CreateAccountFragment", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
+
 
         init(view);
 
@@ -83,7 +85,7 @@ public class CreateAccountFragment extends Fragment {
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ReplacerActivity) getActivity()).setFragment(new LoginFragment());
+                ((FragmentReplaceActivity) getActivity()).setFragment(new LoginFragment());
             }
         });
 
@@ -172,7 +174,6 @@ public class CreateAccountFragment extends Fragment {
 
     }
 
-    /*
     private void uploadUser(FirebaseUser user, String name, String email) {
 
         List<String> list = new ArrayList<>();
@@ -214,6 +215,5 @@ public class CreateAccountFragment extends Fragment {
 
     }
 
-*/
 
 }
