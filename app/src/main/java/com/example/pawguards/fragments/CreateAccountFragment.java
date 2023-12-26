@@ -29,6 +29,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import android.util.Log;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +43,7 @@ public class CreateAccountFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView toLogin;
     private Button signupBtn;
+    private TextView registerText;
     private FirebaseAuth auth;
 
     public CreateAccountFragment() {
@@ -64,7 +67,9 @@ public class CreateAccountFragment extends Fragment {
         clickListener();
 
     }
-
+    private void onRegisterText(){
+        //  BOZUK
+    }
     private void init(View view) {
 
         nameSignUp = view.findViewById(R.id.nameSignUp);
@@ -75,7 +80,7 @@ public class CreateAccountFragment extends Fragment {
         toLogin = view.findViewById(R.id.toLogin);
         signupBtn = view.findViewById(R.id.signupBtn);
         progressBar = view.findViewById(R.id.progressBar);
-
+        registerText = view.findViewById(R.id.toRegister);
         auth = FirebaseAuth.getInstance();
 
     }
