@@ -15,29 +15,49 @@
 
     </FrameLayout>
 
-    <!-- Bottom container with buttons or other views -->
     <LinearLayout
         android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/button1"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/navbar"
+    >
+        <ImageView
+            android:id="@+id/NavButton1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button 1" />
-
-        <Button
-            android:id="@+id/button2"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_margin="8dp"
+            android:onClick="onHomeClick"
+            />
+        <ImageView
+            android:id="@+id/NavButton2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button 2" />
-
-        <!-- Add more buttons or views as needed -->
-
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_margin="8dp"
+            android:onClick="onHomeClick"
+            />
+        <ImageView
+            android:id="@+id/NavButton3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_margin="8dp"
+            android:onClick="onHomeClick"
+            />
+        <ImageView
+            android:id="@+id/NavButton4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_margin="8dp"
+            android:onClick="onHomeClick"
+            />
     </LinearLayout>
 </RelativeLayout>

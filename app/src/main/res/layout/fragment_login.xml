@@ -118,7 +118,6 @@
         android:layout_height="wrap_content"
         android:text="Don’t have an account? Register"
         android:textColor="@color/colorPrimary"
-        android:onClick="onRegisterText"
         />
 
 </LinearLayout>

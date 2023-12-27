@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pawguards.HomeActivity;
 import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -46,6 +47,7 @@ public class LoginFragment extends Fragment {
     private TextView toRegister, forgotLogin;
     private Button loginBtn, loginWithGoogleBtn;
     private ProgressBar progressBar;
+    private TextView registerText;
 
     private static final int RC_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
@@ -74,6 +76,7 @@ public class LoginFragment extends Fragment {
 
     }
 
+
     private void init(View view) {
 
         emailLogin = view.findViewById(R.id.emailLogin);
@@ -83,7 +86,7 @@ public class LoginFragment extends Fragment {
         toRegister = view.findViewById(R.id.toRegister);
         forgotLogin = view.findViewById(R.id.forgotLogin);
         progressBar = view.findViewById(R.id.progressBar);
-
+        registerText = view.findViewById(R.id.toRegister);
 
         auth = FirebaseAuth.getInstance();
 
@@ -110,6 +113,9 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //LOGINE BASINCA HOME ACTIVITYE GECIS YAPACAK
+                //openHomeActivity();
 
                 String email = emailLogin.getText().toString();
                 String password = passwordLogin.getText().toString();
@@ -267,6 +273,11 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
+    }
+    //LOGINE BASINCA HOME ACTIVITYE GECIS YAPACAK HENUS USER TAŞIMIYOR
+    private void openHomeActivity() {
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        startActivity(intent);
     }
 
 }
