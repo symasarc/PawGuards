@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.pawguards.fragments.LoginFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -19,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         init();
+        
     }
 
     public void init() {
@@ -27,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         navButton2 = findViewById(R.id.navButton2);
         navButton3 = findViewById(R.id.navButton3);
         navButton4 = findViewById(R.id.navButton4);
-        // Set click listeners for each ImageView
+
         navButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,12 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
-        // Method to handle clicks on ImageView elements
     public void onNavClick(View view) {
 
         if(view.getId() == R.id.navButton1) {
@@ -70,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_black_24dp);
+
         } else if(view.getId() == R.id.navButton2) {
             navButton1.setImageResource(R.drawable.ic_home_black_24dp);
             navButton2.setImageResource(R.drawable.ic_home_colorized_24dp);
@@ -86,5 +86,18 @@ public class HomeActivity extends AppCompatActivity {
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_colorized_24dp);
         }
+    }
+    //iflerde içine açılacak fragmentler yazılacak
+    public void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null); // Add transaction to back stack
+        transaction.commit();
+    }
+    // geri tuşunu kullanarak uygulamadan çıkış yapmak için yoksa logine dönüyor
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }
