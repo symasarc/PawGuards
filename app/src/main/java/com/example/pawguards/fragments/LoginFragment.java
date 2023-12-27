@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -91,19 +92,21 @@ public class LoginFragment extends Fragment {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+       mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
     }
 
     private void clickListener() {
 
-        forgotLogin.setOnClickListener(new View.OnClickListener() {
+/*        forgotLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ReplacerActivity) getActivity()).setFragment(new ForgotPassword());
             }
         });
 
+        BAKICAZZZ
+*/
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +162,17 @@ public class LoginFragment extends Fragment {
         toRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ReplacerActivity) getActivity()).setFragment(new CreateAccountFragment());
+
+                Fragment fragment = new CreateAccountFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                if (fragment instanceof LoginFragment) {
+                    fragmentTransaction.addToBackStack(null);
+                }
+
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
             }
         });
 
@@ -227,6 +240,7 @@ public class LoginFragment extends Fragment {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", account.getDisplayName());
+        map.put("surname", account.getEmail());
         map.put("email", account.getEmail());
         map.put("profileImage", String.valueOf(account.getPhotoUrl()));
         map.put("uid", user.getUid());
@@ -254,6 +268,6 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
-
     }
+
 }

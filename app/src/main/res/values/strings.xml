@@ -49,4 +49,5 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="default_web_client_id" translatable="false">582233272674-871q8bbiom3qa2bm3j4gv50rfv42i8mr.apps.googleusercontent.com</string>
 </resources>

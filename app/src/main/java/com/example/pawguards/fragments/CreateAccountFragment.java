@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
-import android.util.Log;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateAccountFragment extends Fragment {
+
 
     public static final String EMAIL_REGEX = "^(.+)@(.+)$";
     private EditText nameSignUp, surnameSignUp, emailSignUp, passwordSignUp, passConfSignUp;
@@ -104,51 +103,51 @@ public class CreateAccountFragment extends Fragment {
             }
         });
 
-            signupBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        signupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            String name = nameSignUp.getText().toString();
-            String surname = surnameSignUp.getText().toString();
-            String email = emailSignUp.getText().toString();
-            String password = passwordSignUp.getText().toString();
-            String confirmPassword = passwordSignUp.getText().toString();
+                String name = nameSignUp.getText().toString();
+                String surname = surnameSignUp.getText().toString();
+                String email = emailSignUp.getText().toString();
+                String password = passwordSignUp.getText().toString();
+                String confirmPassword = passwordSignUp.getText().toString();
 
-            if (name.isEmpty() || name.equals(" ")) {
-                nameSignUp.setError("Please input valid name");
-                return;
+                if (name.isEmpty() || name.equals(" ")) {
+                    nameSignUp.setError("Please input valid name");
+                    return;
+                }
+
+                if (surname.isEmpty() || surname.equals(" ")) {
+                    surnameSignUp.setError("Please input valid name");
+                    return;
+                }
+
+                if (email.isEmpty() || !email.matches(EMAIL_REGEX)) {
+                    emailSignUp.setError("Please input valid email");
+                    return;
+                }
+
+                if (password.isEmpty() || password.length() < 6) {
+                    passwordSignUp.setError("Please input valid password");
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    passConfSignUp.setError("Password not match");
+                    return;
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                createAccount(name, email, password);
+
             }
+        });
 
-            if (surname.isEmpty() || surname.equals(" ")) {
-                surnameSignUp.setError("Please input valid name");
-                return;
-            }
+    }
 
-            if (email.isEmpty() || !email.matches(EMAIL_REGEX)) {
-                emailSignUp.setError("Please input valid email");
-                return;
-            }
-
-            if (password.isEmpty() || password.length() < 6) {
-                passwordSignUp.setError("Please input valid password");
-                return;
-            }
-
-            if (!password.equals(confirmPassword)) {
-                passConfSignUp.setError("Password not match");
-                return;
-            }
-
-            progressBar.setVisibility(View.VISIBLE);
-
-            createAccount(name, surname, email, password);
-
-        }
-    });
-
-}
-
-    private void createAccount(final String name, final String surname, final String email, String password) {
+    private void createAccount(final String name, final String email, String password) {
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -176,7 +175,7 @@ public class CreateAccountFragment extends Fragment {
                                             }
                                         }
                                     });
-                            uploadUser(user, name, surname, email);
+                            uploadUser(user, name, email);
 
                         } else {
                             progressBar.setVisibility(View.GONE);
@@ -189,7 +188,7 @@ public class CreateAccountFragment extends Fragment {
 
     }
 
-    private void uploadUser(FirebaseUser user, String name, String surname, String email) {
+    private void uploadUser(FirebaseUser user, String name, String email) {
 
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
@@ -197,7 +196,6 @@ public class CreateAccountFragment extends Fragment {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
-        map.put("surname", surname);
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());
@@ -230,6 +228,5 @@ public class CreateAccountFragment extends Fragment {
                 });
 
     }
-
 
 }
