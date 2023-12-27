@@ -24,7 +24,7 @@
         android:background="@drawable/navbar"
     >
         <ImageView
-            android:id="@+id/NavButton1"
+            android:id="@+id/navButton1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,25 +33,25 @@
             android:onClick="onHomeClick"
             />
         <ImageView
-            android:id="@+id/NavButton2"
+            android:id="@+id/navButton2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_notifications_black_24dp"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />
         <ImageView
-            android:id="@+id/NavButton3"
+            android:id="@+id/navButton3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_dashboard_black_24dp"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />
         <ImageView
-            android:id="@+id/NavButton4"
+            android:id="@+id/navButton4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

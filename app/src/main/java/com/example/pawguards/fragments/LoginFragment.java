@@ -115,7 +115,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 //LOGINE BASINCA HOME ACTIVITYE GECIS YAPACAK
-                //openHomeActivity();
+                openHomeActivity();
 
                 String email = emailLogin.getText().toString();
                 String password = passwordLogin.getText().toString();
