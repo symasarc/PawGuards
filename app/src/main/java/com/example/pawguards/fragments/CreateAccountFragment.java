@@ -140,14 +140,14 @@ public class CreateAccountFragment extends Fragment {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                createAccount(name, email, password);
+                createAccount(name, surname, email, password);
 
             }
         });
 
     }
 
-    private void createAccount(final String name, final String email, String password) {
+    private void createAccount(final String name, final String surname, final String email, String password) {
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -175,7 +175,7 @@ public class CreateAccountFragment extends Fragment {
                                             }
                                         }
                                     });
-                            uploadUser(user, name, email);
+                            uploadUser(user, name, surname, email);
 
                         } else {
                             progressBar.setVisibility(View.GONE);
@@ -188,7 +188,7 @@ public class CreateAccountFragment extends Fragment {
 
     }
 
-    private void uploadUser(FirebaseUser user, String name, String email) {
+    private void uploadUser(FirebaseUser user, String name, String surname, String email) {
 
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
@@ -196,6 +196,7 @@ public class CreateAccountFragment extends Fragment {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
+        map.put("surname", email);
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());

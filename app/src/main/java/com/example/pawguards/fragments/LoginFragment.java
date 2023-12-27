@@ -105,7 +105,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        BAKICAZZZ
 */
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
