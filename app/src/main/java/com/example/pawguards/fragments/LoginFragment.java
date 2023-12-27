@@ -143,6 +143,7 @@ public class LoginFragment extends Fragment {
                                         Toast.makeText(getContext(), "Please verify your email", Toast.LENGTH_SHORT).show();
                                     }
 
+                                    //???????????????
                                     sendUserToMainActivity();
 
                                 } else {
@@ -194,6 +195,7 @@ public class LoginFragment extends Fragment {
 
     }
 
+    //GOOGLE SIGN IN KISMINDA KENDİ MAİLİMLE HESAP AÇTIKTAN SONRA LOGIN EKRANINDA KALMAYA DEVAM EDİYOR
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
