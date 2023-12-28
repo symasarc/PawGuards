@@ -7,22 +7,40 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.example.pawguards.CustomListAdapter;
+import com.example.pawguards.CustomListItem;
 import com.example.pawguards.R;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    View view;
+    ListView newsView;
+    CustomListAdapter adapter;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
+    }
+    public void init() {
+        // Find the ListView element
+
+        // Create an ArrayList of CustomListItem objects
+        ArrayList<CustomListItem> dataList = new ArrayList<>();
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 1"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 2"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 3"));
+        // Set up the ListView and custom adapter
+        newsView = view.findViewById(R.id.newsListView);
+        adapter = new CustomListAdapter(requireContext(), dataList);
+        newsView.setAdapter(adapter);
     }
 
 
@@ -38,16 +56,35 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Set up the ListView and custom adapter
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        fillListView();
+        return view;
+    }
+
+    public void fillListView() {
+        // Create an ArrayList of CustomListItem objects
+        ArrayList<CustomListItem> dataList = new ArrayList<>();
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        // Set up the ListView and custom adapter
+        newsView = view.findViewById(R.id.newsListView);
+        adapter = new CustomListAdapter(requireContext(), dataList);
+        newsView.setAdapter(adapter);
     }
 }

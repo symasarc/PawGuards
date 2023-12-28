@@ -27,9 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         init();
+        changeFragment(new HomeFragment());
 
-
-        
     }
 
     public void init() {
@@ -71,7 +70,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onNavClick(View view) {
 
         if(view.getId() == R.id.navButton1) {
-
             changeFragment(new HomeFragment());
             navButton1.setImageResource(R.drawable.ic_home_colorized_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
