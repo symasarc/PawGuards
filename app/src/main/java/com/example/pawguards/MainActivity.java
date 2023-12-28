@@ -17,5 +17,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment createAccountFragment = new CreateAccountFragment();
         transaction.replace(R.id.container, createAccountFragment).commit();
+
     }
 }

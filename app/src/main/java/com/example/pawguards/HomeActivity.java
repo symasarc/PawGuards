@@ -8,7 +8,11 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.pawguards.fragments.AdoptionCenterFragment;
+import com.example.pawguards.fragments.DonationFragment;
+import com.example.pawguards.fragments.HomeFragment;
 import com.example.pawguards.fragments.LoginFragment;
+import com.example.pawguards.fragments.MyAccountFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,6 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         init();
+
+
         
     }
 
@@ -65,33 +71,37 @@ public class HomeActivity extends AppCompatActivity {
     public void onNavClick(View view) {
 
         if(view.getId() == R.id.navButton1) {
+
+            changeFragment(new HomeFragment());
             navButton1.setImageResource(R.drawable.ic_home_colorized_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_black_24dp);
 
         } else if(view.getId() == R.id.navButton2) {
+            changeFragment(new AdoptionCenterFragment());
             navButton1.setImageResource(R.drawable.ic_home_black_24dp);
             navButton2.setImageResource(R.drawable.ic_home_colorized_24dp);
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_black_24dp);
         } else if(view.getId() == R.id.navButton3) {
+            changeFragment(new DonationFragment());
             navButton1.setImageResource(R.drawable.ic_home_black_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_colorized_24dp);
             navButton4.setImageResource(R.drawable.ic_home_black_24dp);
         } else if(view.getId() == R.id.navButton4) {
+            changeFragment(new MyAccountFragment());
             navButton1.setImageResource(R.drawable.ic_home_black_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_colorized_24dp);
         }
     }
-    //iflerde içine açılacak fragmentler yazılacak
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null); // Add transaction to back stack
+        transaction.replace(R.id.homeContainer, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
     // geri tuşunu kullanarak uygulamadan çıkış yapmak için yoksa logine dönüyor

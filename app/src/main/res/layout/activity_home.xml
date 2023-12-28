@@ -6,7 +6,7 @@
 
     <!-- Empty or minimal content area -->
     <FrameLayout
-        android:id="@+id/contentFrame"
+        android:id="@+id/homeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomContainer">
