@@ -37,10 +37,10 @@
         android:id="@+id/newsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:divider="@null"
-        android:dividerHeight="8dp"
+        android:dividerHeight="2dp"
         >
 
     </ListView>
