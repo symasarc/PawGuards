@@ -4,9 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.pawguards.CustomListAdapter;
@@ -17,9 +20,12 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    View view;
-    ListView newsView;
-    CustomListAdapter adapter;
+    private View view;
+    private ImageView heartImage;
+    private ListView newsView;
+    private CustomListAdapter adapter;
+    private GestureDetector gestureDetector;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -30,17 +36,8 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
     public void init() {
-        // Find the ListView element
-
-        // Create an ArrayList of CustomListItem objects
-        ArrayList<CustomListItem> dataList = new ArrayList<>();
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 1"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 2"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Item 3"));
-        // Set up the ListView and custom adapter
         newsView = view.findViewById(R.id.newsListView);
-        adapter = new CustomListAdapter(requireContext(), dataList);
-        newsView.setAdapter(adapter);
+        heartImage = view.findViewById(R.id.heartImageView);
     }
 
 
@@ -62,9 +59,6 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // Set up the ListView and custom adapter
-
-
     }
 
     @Override
@@ -72,7 +66,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        init();
         fillListView();
+
+        view.setClickable(true);
         return view;
     }
 
@@ -83,8 +81,8 @@ public class HomeFragment extends Fragment {
         dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
         dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
         // Set up the ListView and custom adapter
-        newsView = view.findViewById(R.id.newsListView);
         adapter = new CustomListAdapter(requireContext(), dataList);
         newsView.setAdapter(adapter);
     }
+
 }
