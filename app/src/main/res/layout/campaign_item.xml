@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Campaign Image -->
+    <ImageView
+        android:id="@+id/imageCampaign"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/cat_dog_ic"
+        android:scaleType="centerCrop" />
+
+    <!-- Campaign Information -->
+    <LinearLayout
+        android:id="@+id/linearCampaignInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageCampaign"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textCampaignTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save the Puppies"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textCampaignDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help us rescue and care for puppies in need."
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textAmountRaised"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount Raised: $5000"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/buttonDonateNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donate Now" />
+
+    </LinearLayout>
+</RelativeLayout>

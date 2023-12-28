@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#2196F3"
-    tools:context=".fragments.DonationFragment">
+<!-- donation_fundraising_fragment.xml -->
+<!-- donation_fundraising_fragment.xml -->
 
-    <!-- TODO: Update blank fragment layout -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header -->
     <TextView
+        android:id="@+id/textViewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Donation and Fundraising"
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:padding="16dp" />
+
+    <!-- RecyclerView for Donation Campaigns -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCampaigns"
+        android:layout_below="@id/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="DONATION FRAGMENT" />
+        android:padding="16dp" />
 
-</FrameLayout>
+</RelativeLayout>

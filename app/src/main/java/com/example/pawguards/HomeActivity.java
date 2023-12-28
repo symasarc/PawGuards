@@ -1,17 +1,16 @@
 package com.example.pawguards;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pawguards.fragments.AdoptionCenterFragment;
 import com.example.pawguards.fragments.DonationFragment;
 import com.example.pawguards.fragments.HomeFragment;
-import com.example.pawguards.fragments.LoginFragment;
 import com.example.pawguards.fragments.MyAccountFragment;
 
 public class HomeActivity extends AppCompatActivity {
