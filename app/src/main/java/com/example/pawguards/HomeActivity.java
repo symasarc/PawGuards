@@ -70,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if(view.getId() == R.id.navButton1) {
             changeFragment(new HomeFragment());
+
             navButton1.setImageResource(R.drawable.ic_home_colorized_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
