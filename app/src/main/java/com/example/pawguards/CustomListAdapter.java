@@ -45,7 +45,7 @@ public class CustomListAdapter extends BaseAdapter {
         }
 
         ImageView itemImageView = view.findViewById(R.id.itemImageView);
-        TextView itemTextView = view.findViewById(R.id.itemTextView);
+        TextView itemTextView = view.findViewById(R.id.itemTitleTextView);
 
         CustomListItem currentItem = dataList.get(position);
 
