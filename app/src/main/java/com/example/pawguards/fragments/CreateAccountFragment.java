@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pawguards.HomeActivity;
 import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,8 +45,7 @@ public class CreateAccountFragment extends Fragment {
     private Button signupBtn;
     private FirebaseAuth auth;
 
-    public CreateAccountFragment() {
-    }
+    public CreateAccountFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +72,17 @@ public class CreateAccountFragment extends Fragment {
         signupBtn = view.findViewById(R.id.signupBtn);
         progressBar = view.findViewById(R.id.progressBar);
         auth = FirebaseAuth.getInstance();
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if(user != null){
+            startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+            getActivity().finish();
+        }
     }
 
     private void clickListener() {
@@ -181,9 +191,6 @@ public class CreateAccountFragment extends Fragment {
 
     private void uploadUser(FirebaseUser user, String name, String surname, String email) {
 
-        List<String> list = new ArrayList<>();
-        List<String> list1 = new ArrayList<>();
-
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
@@ -191,12 +198,7 @@ public class CreateAccountFragment extends Fragment {
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());
-        map.put("status", " ");
         map.put("search", name.toLowerCase());
-
-        map.put("followers", list);
-        map.put("following", list1);
-
 
         FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
                 .set(map)
