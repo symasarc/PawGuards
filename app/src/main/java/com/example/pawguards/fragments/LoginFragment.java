@@ -115,7 +115,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 //LOGINE BASINCA HOME ACTIVITYE GECIS YAPACAK
-                openHomeActivity();
+                //openHomeActivity();
 
                 String email = emailLogin.getText().toString();
                 String password = passwordLogin.getText().toString();
@@ -190,7 +190,7 @@ public class LoginFragment extends Fragment {
             return;
 
         progressBar.setVisibility(View.GONE);
-        startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
         getActivity().finish();
 
     }

@@ -45,7 +45,6 @@ public class CreateAccountFragment extends Fragment {
     private FirebaseAuth auth;
 
     public CreateAccountFragment() {
-        // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,17 +52,13 @@ public class CreateAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_account, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.d("CreateAccountFragment", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
-
         init(view);
-
         clickListener();
-
     }
 
     private void init(View view) {
@@ -192,7 +187,7 @@ public class CreateAccountFragment extends Fragment {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
-        map.put("surname", email);
+        map.put("surname", surname);
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());

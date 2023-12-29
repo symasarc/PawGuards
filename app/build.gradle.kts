@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("com.google.firebase:firebase-core:20.0.1")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database:20.0.3") //YENİ EKLEDİM
 
     testImplementation("junit:junit:4.13.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
