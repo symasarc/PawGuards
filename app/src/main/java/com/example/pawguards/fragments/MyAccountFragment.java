@@ -1,6 +1,7 @@
 package com.example.pawguards.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,16 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pawguards.HomeActivity;
+import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MyAccountFragment extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     ImageView profileImage;
     Button editProfileButton;
     TextView usernameTextView;
@@ -31,6 +27,7 @@ public class MyAccountFragment extends Fragment {
     TextView locationTextView;
     TextView bioTextView;
     Button logoutButton;
+    FirebaseAuth auth;
 
     Activity activity;
 
@@ -48,6 +45,7 @@ public class MyAccountFragment extends Fragment {
         locationTextView = getView().findViewById(R.id.tvLocation);
         bioTextView = getView().findViewById(R.id.tvBio);
         logoutButton = getView().findViewById(R.id.btnLogout);
+        auth = FirebaseAuth.getInstance();
     }
 
     public void setListeners() {
@@ -60,25 +58,22 @@ public class MyAccountFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: logout ????????????????????????????????????????????????????????????????????????????????????
+                //logout from firebase auth
+                auth.signOut();
+                //Changing activity
+                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //Finishing activity
+                getActivity().finish();
             }
         });
-    }
-    public static MyAccountFragment newInstance(String param1, String param2) {
-        MyAccountFragment fragment = new MyAccountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            //bundle geliyorsa burada handle edilecek
         }
     }
 
