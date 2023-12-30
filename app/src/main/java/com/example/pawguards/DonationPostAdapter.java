@@ -27,6 +27,8 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
         public TextView textCampaignTitle;
         public TextView textCampaignDescription;
         public TextView textAmountRaised;
+
+        public TextView textGoal;
         public Button buttonDonateNow;
 
         public ViewHolder(View itemView) {
@@ -36,6 +38,7 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
             textCampaignDescription = itemView.findViewById(R.id.textCampaignDescription);
             textAmountRaised = itemView.findViewById(R.id.textAmountRaised);
             buttonDonateNow = itemView.findViewById(R.id.buttonDonateNow);
+            textGoal = itemView.findViewById(R.id.textGoalAmount);
         }
     }
 
@@ -55,6 +58,8 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
         holder.textCampaignTitle.setText(donationPost.getTitle());
         holder.textCampaignDescription.setText(donationPost.getDescription());
         holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
+        holder.textGoal.setText("Goal: " + donationPost.getGoalAmount());
+
 
         holder.buttonDonateNow.setOnClickListener(new View.OnClickListener() {
             @Override
