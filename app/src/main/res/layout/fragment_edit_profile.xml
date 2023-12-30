@@ -18,7 +18,6 @@
         android:textSize="44sp"
         android:gravity="center"
         >
-
     </Button>
     <TextView
         android:id="@+id/tvEditProfile"
@@ -37,7 +36,7 @@
         android:src="@drawable/ic_launcher_background"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-    />
+        />
     <EditText
         android:id="@+id/etNameSurname"
         android:layout_width="match_parent"
