@@ -13,31 +13,27 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="32dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/cat_dog_ic" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HOME PAWEET HOME"
+            android:text="Welcome"
             android:layout_alignParentStart="true"
             android:textAlignment="center"
-            android:fontFamily="SeoulHangang CB"
+            android:fontFamily="@font/seoulhangang_cb_regular"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:textSize="64sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="SeoulHangang CB"
+            android:fontFamily="@font/seoulhangang_cb_regular"
             android:textAlignment="center"
             android:text="Create new account"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:layout_marginBottom="12dp"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
@@ -46,11 +42,11 @@
         <EditText
             android:id="@+id/nameSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:padding="10dp"
             android:textSize="16dp"
             android:layout_margin="8dp"
-            android:background="@drawable/text_box"
+            android:background="@drawable/edit_text_background"
             android:hint="Name"
             android:textColorHint="@color/colorPrimary"
             />
@@ -58,9 +54,9 @@
         <EditText
             android:id="@+id/surnameSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_margin="8dp"
-            android:background="@drawable/text_box"
+            android:background="@drawable/edit_text_background"
             android:hint="Surname"
             android:padding="10dp"
             android:textSize="16dp"
@@ -70,11 +66,11 @@
         <EditText
             android:id="@+id/emailSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:padding="10dp"
             android:textSize="16dp"
             android:layout_margin="8dp"
-            android:background="@drawable/text_box"
+            android:background="@drawable/edit_text_background"
             android:hint="Email"
             android:textColorHint="@color/colorPrimary"
             />
@@ -82,11 +78,11 @@
         <EditText
             android:id="@+id/passwordSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:padding="10dp"
             android:textSize="16dp"
             android:layout_margin="8dp"
-            android:background="@drawable/text_box"
+            android:background="@drawable/edit_text_background"
             android:hint="Password"
             android:textColorHint="@color/colorPrimary"
             />
@@ -94,11 +90,11 @@
         <EditText
             android:id="@+id/passConfSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:padding="10dp"
             android:textSize="16dp"
             android:layout_margin="8dp"
-            android:background="@drawable/text_box"
+            android:background="@drawable/edit_text_background"
             android:hint="Confirm Password"
             android:textColorHint="@color/colorPrimary"
             />
@@ -108,7 +104,6 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="12dp"
-            android:layout_margin="12dp"
             android:layout_marginBottom="16dp"
             android:text="By registering you are agreeing to our \nTerms of use and privacy policy."
             android:textColor="@color/colorPrimary"
