@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapter.ViewHolder> {
 
-    private final List<DonationPost> donationsList;
+    private List<DonationPost> donationsList;
 
     public DonationPostAdapter(List<DonationPost> donationsList) {
         this.donationsList = donationsList;
