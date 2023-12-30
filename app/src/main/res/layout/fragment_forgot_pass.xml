@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ForgotPassFragment"
+    android:background="@drawable/login_background0"
+    android:paddingRight="50dp"
+    android:paddingLeft="50dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- TODO: Email taking screen for forgotten passwords -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/hello_blank_fragment"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/forgottenmailText"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColorHint="#B2DFDB"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/sendMailBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_btn"
+        android:text="@string/send_mail"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/backToLoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_btn"
+        android:text="@string/back_to_login"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+</LinearLayout>
+    

@@ -112,7 +112,7 @@ public class CreateAccountFragment extends Fragment {
                 String surname = surnameSignUp.getText().toString();
                 String email = emailSignUp.getText().toString();
                 String password = passwordSignUp.getText().toString();
-                String confirmPassword = passwordSignUp.getText().toString();
+                String confirmPassword = passConfSignUp.getText().toString();
 
                 if (name.isEmpty() || name.equals(" ")) {
                     nameSignUp.setError("Please input valid name");

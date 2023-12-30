@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Paw Guards</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Please enter your email address\nYour password will be send there</string>
     <string name="title_activity_replacer">ReplacerActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -50,4 +50,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="default_web_client_id" translatable="false">582233272674-871q8bbiom3qa2bm3j4gv50rfv42i8mr.apps.googleusercontent.com</string>
+    <string name="email">Email</string>
+    <string name="send_mail">Send mail</string>
+    <string name="back_to_login">Back to Login</string>
 </resources>

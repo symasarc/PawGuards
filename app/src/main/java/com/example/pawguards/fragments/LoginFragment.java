@@ -88,14 +88,28 @@ public class LoginFragment extends Fragment {
 
     private void clickListener() {
 
-/*        forgotLogin.setOnClickListener(new View.OnClickListener() {
+        forgotLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ReplacerActivity) getActivity()).setFragment(new ForgotPassword());
+                Fragment fragment = new ForgotPassFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                if (fragment instanceof LoginFragment) {
+                    fragmentTransaction.addToBackStack(null);
+                }
+
+                // Passing mail to fragment
+                Bundle bundle = new Bundle();
+                bundle.putString("email", emailLogin.getText().toString());
+                fragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
             }
         });
 
-*/
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
