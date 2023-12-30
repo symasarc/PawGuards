@@ -12,16 +12,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pawguards.DonationPost;
 import com.example.pawguards.R;
 
 import java.util.List;
 
-public class CampaignAdapter extends RecyclerView.Adapter<CampaignAdapter.ViewHolder> {
+public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapter.ViewHolder> {
 
-    private final List<Campaign> campaignsList;
+    private final List<DonationPost> donationsList;
 
-    public CampaignAdapter(List<Campaign> campaignsList) {
-        this.campaignsList = campaignsList;
+    public DonationPostAdapter(List<DonationPost> donationsList) {
+        this.donationsList = donationsList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,34 +45,30 @@ public class CampaignAdapter extends RecyclerView.Adapter<CampaignAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.campaign_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.donation_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Campaign campaign = campaignsList.get(position);
 
-        // Bind campaign data to the ViewHolder
-        holder.imageCampaign.setImageResource(campaign.getImageResourceId());
-        holder.textCampaignTitle.setText(campaign.getTitle());
-        holder.textCampaignDescription.setText(campaign.getDescription());
-        holder.textAmountRaised.setText("Amount Raised: " + campaign.getAmountRaised());
+        DonationPost donationPost = donationsList.get(position);
 
-        // Set up onClickListener for the "Donate Now" button
+        holder.imageCampaign.setImageResource(Integer.parseInt(donationPost.getImage()));
+        holder.textCampaignTitle.setText(donationPost.getTitle());
+        holder.textCampaignDescription.setText(donationPost.getDescription());
+        holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
+
         holder.buttonDonateNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Handle the donation button click, e.g., open a donation form
-                // You can pass the campaign details to the next screen if needed
-                // For simplicity, you can use a Toast for demonstration purposes
-                Toast.makeText(view.getContext(), "Donate Now clicked for " + campaign.getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Donate Now clicked for " + donationPost.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return campaignsList.size();
+        return donationsList.size();
     }
 }

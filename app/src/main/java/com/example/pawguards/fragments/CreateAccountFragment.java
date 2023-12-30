@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.MainActivity;
 import com.example.pawguards.R;
+import com.example.pawguards.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -191,14 +192,18 @@ public class CreateAccountFragment extends Fragment {
 
     private void uploadUser(FirebaseUser user, String name, String surname, String email) {
 
+        User newUser = new User(name, surname, email, " ", user.getUid(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
         Map<String, Object> map = new HashMap<>();
 
-        map.put("name", name);
-        map.put("surname", surname);
-        map.put("email", email);
-        map.put("profileImage", " ");
-        map.put("uid", user.getUid());
-        map.put("search", name.toLowerCase());
+        map.put("name", newUser.getName());
+        map.put("surname", newUser.getSurname());
+        map.put("email", newUser.getEmail());
+        map.put("profilePicture", newUser.getProfilePicture());
+        map.put("uid", newUser.getUid());
+        map.put("donationsMade", newUser.getDonationsMade());
+        map.put("animalsAdopted", newUser.getAnimalsAdopted());
+        map.put("adoptionPosts", newUser.getAdoptionPosts());
 
         FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
                 .set(map)

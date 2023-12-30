@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pawguards.fragments.AdoptionCenterFragment;
-import com.example.pawguards.fragments.DonationFragment;
+import com.example.pawguards.fragments.DonationPostFragment;
 import com.example.pawguards.fragments.HomeFragment;
 import com.example.pawguards.fragments.MyAccountFragment;
 
@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             navButton3.setImageResource(R.drawable.ic_home_black_24dp);
             navButton4.setImageResource(R.drawable.ic_home_black_24dp);
         } else if(view.getId() == R.id.navButton3) {
-            changeFragment(new DonationFragment());
+            changeFragment(new DonationPostFragment());
             navButton1.setImageResource(R.drawable.ic_home_black_24dp);
             navButton2.setImageResource(R.drawable.ic_home_black_24dp);
             navButton3.setImageResource(R.drawable.ic_home_colorized_24dp);
