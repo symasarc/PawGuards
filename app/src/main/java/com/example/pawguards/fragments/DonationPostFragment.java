@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pawguards.DonationPost;
+import com.example.pawguards.DonationPostAdapter;
 import com.example.pawguards.R;
-import com.example.pawguards.Donation;
 
 import java.util.ArrayList;
 import java.util.List;

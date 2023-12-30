@@ -4,13 +4,13 @@ public class DonationPost {
 
     private String title;
     private String description;
-    private String image;
+    //private String image;
     private float raisedAmount;
 
     public DonationPost(String title, String description, String image, float raisedAmount) {
         this.title = title;
         this.description = description;
-        this.image = image;
+        //this.image = image;
         this.raisedAmount = raisedAmount;
     }
 
@@ -22,9 +22,9 @@ public class DonationPost {
         return description;
     }
 
-    public String getImage() {
-        return image;
-    }
+//    public String getImage() {
+//        return image;
+//    }
 
     public float getRaisedAmount() { return raisedAmount; }
 
@@ -34,9 +34,9 @@ public class DonationPost {
 
     public void setDescription(String description) { this.description = description; }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 
     public void setRaisedAmount(float raisedAmount) { this.raisedAmount = raisedAmount; }
 
@@ -45,7 +45,7 @@ public class DonationPost {
         return "DonationPost{" +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
+//                ", image='" + image + '\'' +
                 ", raisedAmount='" + raisedAmount + '\'' +
                 '}';
     }

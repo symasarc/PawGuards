@@ -1,4 +1,4 @@
-package com.example.pawguards.fragments;
+package com.example.pawguards;
 
 // CampaignAdapter.java
 
@@ -11,9 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.pawguards.DonationPost;
-import com.example.pawguards.R;
 
 import java.util.List;
 
@@ -54,7 +51,7 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
 
         DonationPost donationPost = donationsList.get(position);
 
-        holder.imageCampaign.setImageResource(Integer.parseInt(donationPost.getImage()));
+//        holder.imageCampaign.setImageResource(Integer.parseInt(donationPost.getImage()));
         holder.textCampaignTitle.setText(donationPost.getTitle());
         holder.textCampaignDescription.setText(donationPost.getDescription());
         holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
