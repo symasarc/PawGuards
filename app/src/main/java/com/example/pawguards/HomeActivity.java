@@ -14,7 +14,6 @@ import com.example.pawguards.fragments.HomeFragment;
 import com.example.pawguards.fragments.MyAccountFragment;
 
 public class HomeActivity extends AppCompatActivity {
-
     ImageView navButton1;
     ImageView navButton2;
     ImageView navButton3;
@@ -98,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.replace(R.id.homeContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

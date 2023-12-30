@@ -9,9 +9,11 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
@@ -24,9 +26,10 @@ public class EditProfileFragment extends Fragment {
     private EditText etEmail;
     private EditText etDateOfBirth;
     private EditText etPassword;
-    private EditText etLocation;
+    private Spinner spCountry;
     private ImageView ivProfilePicture;
     private Button btnBack;
+    private Button btnSaveChanges;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -40,12 +43,25 @@ public class EditProfileFragment extends Fragment {
 
     public void init() {
         etNameSurname = getView().findViewById(R.id.etNameSurname);
-        //etEmail = getView().findViewById(R.id.etEmail);
-        //etDateOfBirth = getView().findViewById(R.id.etDateOfBirth);
-        //etPassword = getView().findViewById(R.id.etPassword);
-        etLocation = getView().findViewById(R.id.etLocation);
+        etEmail = getView().findViewById(R.id.etEmail);
+        etDateOfBirth = getView().findViewById(R.id.etDateOfBirth);
+        etPassword = getView().findViewById(R.id.etPassword);
+        spCountry = getView().findViewById(R.id.spCountry);
         ivProfilePicture = getView().findViewById(R.id.ivProfilePicture);
         btnBack = getView().findViewById(R.id.btnBack);
+        btnSaveChanges = getView().findViewById(R.id.btnSaveChanges);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.country_array, // Array resource containing country names
+                android.R.layout.simple_spinner_item
+        );
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spCountry.setAdapter(adapter);
     }
 
     public void setListeners() {
@@ -53,10 +69,9 @@ public class EditProfileFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((HomeActivity) getActivity()).changeFragment(new MyAccountFragment());
-                //pop fragment from back stack
-                getActivity().getSupportFragmentManager().popBackStack();
+                ((HomeActivity) getActivity()).changeFragment(new MyAccountFragment());
 
+                //getActivity().getSupportFragmentManager().popBackStack();
             }
         });
         ivProfilePicture.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +80,12 @@ public class EditProfileFragment extends Fragment {
                 Intent iGallery = new Intent(Intent.ACTION_PICK);
                 iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(iGallery, GALLERY_REQUEST_CODE);
+            }
+        });
+        btnSaveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveChanges();
             }
         });
 
@@ -112,5 +133,21 @@ public class EditProfileFragment extends Fragment {
             ivProfilePicture.setImageURI(data.getData());
         }
     }
+
+    private void saveChanges() {
+
+        //etNameSurname.getText()
+        //etEmail.getText()
+        //etPassword.getText()
+        //etDateOfBirth.getText()
+        //spCountry.getSelectedItem()
+        //ivProfilePicture.getDrawable()
+
+        //save to firebase
+
+
+        ((HomeActivity) getActivity()).changeFragment(new MyAccountFragment());
+    }
+
 
 }
