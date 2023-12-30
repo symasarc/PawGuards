@@ -1,23 +1,31 @@
 package com.example.pawguards.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
+import android.widget.ListView;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+
+import com.example.pawguards.CustomListAdapter;
+import com.example.pawguards.CustomListItem;
 import com.example.pawguards.R;
+
+import java.util.ArrayList;
+import android.widget.Filter;
 
 public class AdoptionCenterFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private View view;
+    private SearchView searchView;
+    private CustomListAdapter adapter;
+    private ListView adoptionCenterListView;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -25,7 +33,40 @@ public class AdoptionCenterFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void init() {
 
+        // Add the necessary import statements
+
+        adoptionCenterListView = view.findViewById(R.id.lvAdoptionCenter);
+        fillListView();
+        searchView = view.findViewById(R.id.svAdoptionCenter);
+
+        // Set up the search view
+        // Add the necessary import statements
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Handle query submission if needed
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filter the ListView based on the search text
+
+                // Assuming your ListView has an adapter, you can call getFilter() on it
+                if (adoptionCenterListView.getAdapter() instanceof Filterable) {
+                    ((Filterable) adoptionCenterListView.getAdapter()).getFilter().filter(newText);
+                }
+
+                return false;
+            }
+        });
+
+        
+        
+    }
     public static AdoptionCenterFragment newInstance(String param1, String param2) {
         AdoptionCenterFragment fragment = new AdoptionCenterFragment();
         Bundle args = new Bundle();
@@ -48,6 +89,28 @@ public class AdoptionCenterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_adoption_center, container, false);
+        view = inflater.inflate(R.layout.fragment_adoption_center, container, false);
+        init();
+
+        return view; }
+
+
+    public void fillListView() {
+        // Create an ArrayList of CustomListItem objects
+        ArrayList<CustomListItem> dataList = new ArrayList<>();
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
+
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save 2a Life"));
+        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save 3a Life"));
+        // Set up the ListView and custom adapter
+        adapter = new CustomListAdapter(requireContext(), dataList);
+        adoptionCenterListView.setAdapter(adapter);
     }
 }

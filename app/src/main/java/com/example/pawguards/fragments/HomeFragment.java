@@ -111,7 +111,6 @@ public class HomeFragment extends Fragment {
         init();
         fillListView();
 
-        view.setClickable(true);
         return view;
     }
 
