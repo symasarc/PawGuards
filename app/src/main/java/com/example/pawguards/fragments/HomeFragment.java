@@ -13,18 +13,15 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.pawguards.CustomListAdapter;
-import com.example.pawguards.CustomListItem;
+import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.R;
-
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private View view;
     private ImageView heartImage;
     private ListView newsView;
-    private CustomListAdapter adapter;
+    private AdoptionPostAdapter adapter;
     private GestureDetector gestureDetector;
 
     private static final String ARG_PARAM1 = "param1";
@@ -77,8 +74,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Handle item click here
-                CustomListItem selectedItem = (CustomListItem) parent.getItemAtPosition(position);
-                Toast.makeText(requireContext(), "Clicked: " + selectedItem.getText(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -115,13 +110,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void fillListView() {
-        // Create an ArrayList of CustomListItem objects
-        ArrayList<CustomListItem> dataList = new ArrayList<>();
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        // Set up the ListView and custom adapter
-        adapter = new CustomListAdapter(requireContext(), dataList);
-        newsView.setAdapter(adapter);
+
     }
 }

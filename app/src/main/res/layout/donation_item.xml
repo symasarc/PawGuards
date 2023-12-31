@@ -9,16 +9,16 @@
         android:id="@+id/imageCampaign"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/cat_dog_ic"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/cat_dog_ic" />
 
     <!-- Campaign Information -->
     <LinearLayout
         android:id="@+id/linearCampaignInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imageCampaign"
         android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/imageCampaign"
         android:orientation="vertical">
 
         <TextView
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save the Puppies"
+            android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
         <TextView
@@ -33,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Help us rescue and care for puppies in need."
+            android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
         <TextView
@@ -40,13 +42,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Amount Raised: $5000"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <!-- Add Goal Amount TextView -->
+        <TextView
+            android:id="@+id/textGoalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goal Amount: $10000"
+            android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
         <Button
             android:id="@+id/buttonDonateNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Donate Now" />
+            android:text="Donate Now"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 </RelativeLayout>

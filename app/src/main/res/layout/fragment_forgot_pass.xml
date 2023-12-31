@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ForgotPassFragment"
     android:background="@drawable/login_background0"
-    android:paddingRight="50dp"
-    android:paddingLeft="50dp"
+    android:gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    tools:context=".fragments.ForgotPassFragment">
 
     <!-- TODO: Email taking screen for forgotten passwords -->
 
@@ -29,6 +29,7 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
+        android:textColor="#FFFFFF"
         android:textColorHint="#B2DFDB"
         android:textSize="16sp" />
 
