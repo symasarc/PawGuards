@@ -102,6 +102,14 @@ public class HomeActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+    public void changeFragment(Fragment fragment,Bundle bundle) {
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        transaction.replace(R.id.homeContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

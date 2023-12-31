@@ -102,7 +102,6 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((HomeActivity) getActivity()).changeFragment(new MyAccountFragment());
-
                 //getActivity().getSupportFragmentManager().popBackStack();
             }
         });

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.Animal;
+import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +34,7 @@ public class AdoptionCenterFragment extends Fragment {
     private AdoptionPostAdapter adoptionPostAdapter;
     private Button btnAddAdoptionPost;
     private List<AdoptionPost> adoptionArrayList;
+    private boolean adoptionPostAdded = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,9 +59,11 @@ public class AdoptionCenterFragment extends Fragment {
                 //BURAYA YENİ BİR SAYFA AÇTIRACAĞIZ
                 Animal animal = new Animal("Dog", "A cute dog", 1, "Dog", "Male");
                 addAdoptionPost("Dog for adoption", "A cute dog for adoption", "San Francisco", animal, "Available", " ");
+                ((HomeActivity) getActivity()).changeFragment(new PostCreationFragment());
             }
         });
 
+            String title = getArguments().getString("title");
         return view;
     }
 
@@ -98,7 +102,7 @@ public class AdoptionCenterFragment extends Fragment {
         recyclerView.setAdapter(adoptionPostAdapter);
     }
 
-    private void addAdoptionPost(String title, String description, String location, Animal animal, String availability, String image) {
+    public void addAdoptionPost(String title, String description, String location, Animal animal, String availability, String image) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         Map<String, Object> adoptionPost = new HashMap<>();
@@ -125,6 +129,5 @@ public class AdoptionCenterFragment extends Fragment {
                     }
                 });
     }
-
 
 }

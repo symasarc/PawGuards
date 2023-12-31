@@ -39,7 +39,7 @@
         android:background="@drawable/edit_button"
         android:text="Create Post"
         android:textColor="#FFFFFF"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold">
 
     </Button>
