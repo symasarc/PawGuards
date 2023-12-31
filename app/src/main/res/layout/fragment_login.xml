@@ -25,7 +25,7 @@
         android:text="Welcome"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="64sp"/>
+        android:textSize="64sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -45,6 +45,7 @@
         android:background="@drawable/edit_text_background"
         android:hint="email"
         android:padding="10dp"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/colorPrimary"
         android:textSize="16dp" />
 
@@ -56,6 +57,7 @@
         android:background="@drawable/edit_text_background"
         android:hint="password"
         android:padding="10dp"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/colorPrimary"
         android:textSize="16dp" />
 
@@ -69,7 +71,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="36dp"
         android:text="Forgot Password?"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -92,8 +95,8 @@
         android:id="@+id/toRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text="Don’t have an account? Register"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimary" />
 
 
