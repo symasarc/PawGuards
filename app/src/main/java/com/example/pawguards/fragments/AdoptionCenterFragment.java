@@ -55,7 +55,7 @@ public class AdoptionCenterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //BURAYA YENİ BİR SAYFA AÇTIRACAĞIZ
-                Animal animal = new Animal("Dog", "A cute dog", "1", "Dog");
+                Animal animal = new Animal("Dog", "A cute dog", 1, "Dog", "Male");
                 addAdoptionPost("Dog for adoption", "A cute dog for adoption", "San Francisco", animal, "Available", " ");
             }
         });
@@ -66,7 +66,7 @@ public class AdoptionCenterFragment extends Fragment {
     private void retrieveAdoptionPosts() {
         FirebaseFirestore.getInstance().collection("adoptions").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("posts").get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && adoptionArrayList != null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             System.out.println(document.getId() + " => " + document.getData());
                             String title = document.getString("title");
@@ -74,10 +74,12 @@ public class AdoptionCenterFragment extends Fragment {
                             String location = document.getString("location");
                             String animalName = document.getString("animal_name");
                             String animalDescription = document.getString("animal_description");
-                            String animalAge = document.getString("animal_age");
+                            int animalAge = Integer.parseInt(document.getString("animal_age"));
                             String animalType = document.getString("animal_type");
+                            String animalGender = document.getString("animal_gender");
 
-                            Animal animal = new Animal(animalName, animalDescription, animalAge, animalType);
+                            Animal animal = new Animal(animalName, animalDescription, animalAge, animalType, animalGender);
+
                             String availability = document.getString("availability");
                             //String image = document.getString("image");
                             AdoptionPost adoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
@@ -108,6 +110,7 @@ public class AdoptionCenterFragment extends Fragment {
         adoptionPost.put("animal_age", animal.getAge());
         adoptionPost.put("animal_type", animal.getType());
         adoptionPost.put("availability", availability);
+        adoptionPost.put("animal_gender", animal.getGender());
         //adoptionPost.put("image", image);
 
         FirebaseFirestore.getInstance().collection("adoptions").document(auth.getCurrentUser().getUid()).collection("posts").add(adoptionPost)

@@ -6,26 +6,26 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private String profilePicture;
+    //private String profilePicture;
     private String uid;
     private List<Donation> donationsMade;
     private List<Animal> animalsAdopted;
     private List<AdoptionPost> adoptionPosts;
     private String country;
+    private String gender;
 
-    public User() {
-    }
 
-    public User(String name, String surname, String email, String profilePicture, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country) {
+    public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country, String gender) {
+        //this.profilePicture = profilePicture;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.profilePicture = profilePicture;
         this.uid = uid;
         this.donationsMade = donationsMade;
         this.animalsAdopted = animalsAdopted;
         this.adoptionPosts = adoptionPosts;
         this.country = country;
+        this.gender = gender;
     }
 
     public String getName() {
@@ -40,9 +40,9 @@ public class User {
         return email;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+    //public String getProfilePicture() {
+    //    return profilePicture;
+    //}
 
     public String getUid() {
         return uid;
@@ -72,9 +72,9 @@ public class User {
         this.email = email;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+    //public void setProfilePicture(String profilePicture) {
+    //    this.profilePicture = profilePicture;
+    //}
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -95,13 +95,25 @@ public class User {
         return country;
     }
 
+    public String getGender(){
+        return gender;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setGender(String gender){
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", profilePicture='" + profilePicture + '\'' +
+    //            ", profilePicture='" + profilePicture + '\'' +
                 ", uid='" + uid + '\'' +
                 ", donationsMade=" + donationsMade +
                 ", animalsAdopted=" + animalsAdopted +

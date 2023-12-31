@@ -41,7 +41,6 @@ public class DonationPostFragment extends Fragment {
             // Set up the RecyclerView with a LinearLayoutManager
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
-
             // Retrieve donation posts from Firestore and update UI
             retrieveDonationPosts();
 

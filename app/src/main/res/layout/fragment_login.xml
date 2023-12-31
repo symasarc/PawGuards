@@ -9,7 +9,6 @@
     android:paddingRight="50dp"
     tools:context=".fragments.CreateAccountFragment">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +60,6 @@
         android:textColorHint="@color/colorPrimary"
         android:textSize="16dp" />
 
-
     <TextView
         android:id="@+id/forgotLogin"
         android:layout_width="wrap_content"
@@ -95,9 +93,9 @@
         android:id="@+id/toRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Don’t have an account? Register"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary" />
-
 
 </LinearLayout>
