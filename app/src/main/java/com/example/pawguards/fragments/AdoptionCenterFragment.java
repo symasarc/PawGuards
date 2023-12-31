@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +15,8 @@ import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.Animal;
 import com.example.pawguards.HomeActivity;
+import androidx.annotation.NonNull;
 import com.example.pawguards.R;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
