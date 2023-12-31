@@ -71,7 +71,6 @@ public class PostCreationFragment extends Fragment {
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Animal animal = new Animal("Dog", "A cute dog", "1", "Dog");
 
                 int selectedRadioButtonId = rgSpecies.getCheckedRadioButtonId();
                 String species = "";
@@ -92,9 +91,11 @@ public class PostCreationFragment extends Fragment {
                 bundle.putString("age", etAge.getText().toString());
                 bundle.putString("name", etName.getText().toString());
                 bundle.putString("species", species);
+                bundle.putString("gender", "gender");
+                bundle.putString("availability", "available");
+                bundle.putString("image", "image");
 
-                //change fragment in single line
-                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment(), bundle);
+                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment(),bundle);
             }
         });
 
