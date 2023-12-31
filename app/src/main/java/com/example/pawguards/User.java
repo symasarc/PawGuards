@@ -15,6 +15,9 @@ public class User {
     private String gender;
     private String profilePicture;
 
+    public User() {
+    }
+
 
     public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country, String gender) {
         this.profilePicture = profilePicture;
