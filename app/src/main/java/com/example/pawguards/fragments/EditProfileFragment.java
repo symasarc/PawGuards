@@ -3,9 +3,11 @@ package com.example.pawguards.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,16 @@ import android.widget.Spinner;
 
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
+import com.example.pawguards.User;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.*;
+
 import androidx.annotation.Nullable;
+
+import java.util.concurrent.ExecutionException;
 
 public class EditProfileFragment extends Fragment {
 
@@ -30,26 +41,27 @@ public class EditProfileFragment extends Fragment {
     private ImageView ivProfilePicture;
     private Button btnBack;
     private Button btnSaveChanges;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //firebase database tables object
+    private FirebaseAuth auth;
+    private User user;
+    private FirebaseFirestore db;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    
 
     public EditProfileFragment() {
         // Required empty public constructor
     }
 
-    public void init() {
+    public void init() throws ExecutionException, InterruptedException {
         etNameSurname = getView().findViewById(R.id.etNameSurname);
         etEmail = getView().findViewById(R.id.etEmail);
-        etDateOfBirth = getView().findViewById(R.id.etDateOfBirth);
         etPassword = getView().findViewById(R.id.etPassword);
         spCountry = getView().findViewById(R.id.spCountry);
         ivProfilePicture = getView().findViewById(R.id.ivProfilePicture);
         btnBack = getView().findViewById(R.id.btnBack);
         btnSaveChanges = getView().findViewById(R.id.btnSaveChanges);
+        auth= FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 getContext(),
@@ -62,6 +74,26 @@ public class EditProfileFragment extends Fragment {
 
         // Apply the adapter to the spinner
         spCountry.setAdapter(adapter);
+
+        DocumentReference docRef = db.collection("Users").document(auth.getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("DocumentReference", "DocumentSnapshot data: " + document.getData());
+                        User user1 = document.toObject(User.class);
+                        etEmail.setText(user1.getEmail());
+                        etNameSurname.setText(user1.getName() + " " + user1.getSurname());
+                    } else {
+                        Log.d("DocumentReference", "No such document");
+                    }
+                } else {
+                    Log.d("DocumentReference", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     public void setListeners() {
@@ -91,24 +123,6 @@ public class EditProfileFragment extends Fragment {
 
     }
 
-    public static EditProfileFragment newInstance(String param1, String param2) {
-        EditProfileFragment fragment = new EditProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,7 +133,15 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
+
+        try {
+            init();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         setListeners();
     }
 

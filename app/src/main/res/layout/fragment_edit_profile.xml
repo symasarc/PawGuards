@@ -39,6 +39,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Change Profile Picture"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="12dp"
         android:text="Name"
@@ -102,30 +111,6 @@
         android:layout_marginRight="36dp"
         android:background="#97CBB8F3"
         android:hint="********"
-        android:padding="8dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="12dp"
-        android:text="Date of Birth"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/etDateOfBirth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp"
-        android:background="#97CBB8F3"
-        android:hint="DD/MM/YYYY"
         android:padding="8dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"

@@ -11,8 +11,12 @@ public class User {
     private List<Donation> donationsMade;
     private List<Animal> animalsAdopted;
     private List<AdoptionPost> adoptionPosts;
+    private String country;
 
-    public User(String name, String surname, String email, String profilePicture, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts) {
+    public User() {
+    }
+
+    public User(String name, String surname, String email, String profilePicture, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -21,6 +25,7 @@ public class User {
         this.donationsMade = donationsMade;
         this.animalsAdopted = animalsAdopted;
         this.adoptionPosts = adoptionPosts;
+        this.country = country;
     }
 
     public String getName() {
@@ -85,6 +90,9 @@ public class User {
 
     public void setAdoptionPosts(List<AdoptionPost> adoptionPosts) {
         this.adoptionPosts = adoptionPosts;
+    }
+    public String getCountry() {
+        return country;
     }
 
     @Override

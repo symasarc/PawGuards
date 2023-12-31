@@ -192,7 +192,7 @@ public class CreateAccountFragment extends Fragment {
 
     private void uploadUser(FirebaseUser user, String name, String surname, String email) {
 
-        User newUser = new User(name, surname, email, " ", user.getUid(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        User newUser = new User(name, surname, email, " ", user.getUid(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), " ");
 
         Map<String, Object> map = new HashMap<>();
 
@@ -204,6 +204,7 @@ public class CreateAccountFragment extends Fragment {
         map.put("donationsMade", newUser.getDonationsMade());
         map.put("animalsAdopted", newUser.getAnimalsAdopted());
         map.put("adoptionPosts", newUser.getAdoptionPosts());
+        map.put("country", newUser.getCountry());
 
         FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
                 .set(map)
