@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:padding="16dp"
     android:background="@drawable/news_box"
+    android:gravity="center"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="70dp"
         android:layout_height="70dp">
+
         <ImageView
             android:id="@+id/itemImageView"
             android:layout_width="wrap_content"
@@ -23,61 +23,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="16dp">
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/itemTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="24dp"
             android:text="Yumak"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/common_google_signin_btn_icon_light">
 
             </ImageView>
+
             <TextView
                 android:id="@+id/itemDistanceTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#8E8E8E"
                 android:layout_marginLeft="12dp"
                 android:text="10km"
+                android:textColor="#8E8E8E"
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/avaiableForTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#5EB87C"
                 android:text="Avaiable for"
+                android:textColor="#5EB87C"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignRight="@id/avaiableForTextView"
-                android:src="@drawable/common_google_signin_btn_icon_light">
-            </ImageView>
+                android:src="@drawable/common_google_signin_btn_icon_light"></ImageView>
 
         </RelativeLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

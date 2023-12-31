@@ -10,8 +10,8 @@
     <Button
         android:id="@+id/btnBack"
         android:layout_width="70dp"
-        android:layout_marginLeft="18dp"
         android:layout_height="70dp"
+        android:layout_marginLeft="18dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/arrow_left"
         android:textSize="44sp"></Button>
@@ -149,9 +149,9 @@
         android:layout_marginRight="36dp"
         android:background="@drawable/edit_text_background_2"
         android:padding="8dp"
+        android:popupBackground="#1C184C"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:popupBackground="#1C184C"
         android:textSize="18sp"
         android:textStyle="bold" />
 
