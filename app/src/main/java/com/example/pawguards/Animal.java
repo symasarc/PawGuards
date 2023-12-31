@@ -4,11 +4,13 @@ public class Animal {
     private String name;
     private String age;
     private String type;
+    private String description;
 
     public Animal(String name, String description, String age, String type) {
         this.name = name;
         this.age = age;
         this.type = type;
+        this.description = description;
     }
 
     public String getName() {
@@ -33,6 +35,14 @@ public class Animal {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

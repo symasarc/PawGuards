@@ -2,9 +2,9 @@ package com.example.pawguards;
 
 public class DonationPost {
 
+    //private String image;
     private String title;
     private String description;
-    //private String image;
     private float raisedAmount;
     private float goalAmount;
 

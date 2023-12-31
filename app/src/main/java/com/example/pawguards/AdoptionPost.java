@@ -2,24 +2,20 @@ package com.example.pawguards;
 
 public class AdoptionPost {
 
-    private User poster;
+//    private String image;
     private String title;
     private String description;
     private String location;
-    private String image;
     private Animal animal;
+    private String availability;
 
-    public AdoptionPost(User poster, String title, String description, String location, String image, Animal animal) {
-        this.poster = poster;
+    public AdoptionPost(String image, String title, String description, String location, Animal animal, String availability) {
+ //       this.image = image;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.image = image;
         this.animal = animal;
-    }
-
-    public User getPoster() {
-        return poster;
+        this.availability = availability;
     }
 
     public String getTitle() {
@@ -34,16 +30,12 @@ public class AdoptionPost {
         return location;
     }
 
-    public String getImage() {
-        return image;
-    }
+//    public String getImage() {
+//        return image;
+//    }
 
     public Animal getAnimal() {
         return animal;
-    }
-
-    public void setPoster(User poster) {
-        this.poster = poster;
     }
 
     public void setTitle(String title) {
@@ -58,23 +50,31 @@ public class AdoptionPost {
         this.location = location;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
 
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
     @Override
     public String toString() {
         return "AdoptionPost{" +
-                "poster='" + poster + '\'' +
+//              "image='" + image + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", image='" + image + '\'' +
-                ", animal='" + animal + '\'' +
+                ", animal=" + animal +
+                ", availability='" + availability + '\'' +
                 '}';
     }
 

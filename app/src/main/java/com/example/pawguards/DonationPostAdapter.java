@@ -27,7 +27,6 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
         public TextView textCampaignTitle;
         public TextView textCampaignDescription;
         public TextView textAmountRaised;
-
         public TextView textGoal;
         public Button buttonDonateNow;
 

@@ -1,129 +1,124 @@
 package com.example.pawguards.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Filterable;
-import android.widget.ListView;
+import android.widget.Toast;
 
-import androidx.appcompat.widget.SearchView;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pawguards.CustomListAdapter;
-import com.example.pawguards.CustomListItem;
-import com.example.pawguards.HomeActivity;
+import com.example.pawguards.AdoptionPost;
+import com.example.pawguards.AdoptionPostAdapter;
+import com.example.pawguards.Animal;
 import com.example.pawguards.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import android.widget.Filter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdoptionCenterFragment extends Fragment {
 
-    private View view;
-    private Activity activity;
-    private SearchView searchView;
-    private CustomListAdapter adapter;
-    private ListView adoptionCenterListView;
-    private Button createPostButton;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
 
-    private String mParam1;
-    private String mParam2;
+    private AdoptionPostAdapter adoptionPostAdapter;
 
-    public AdoptionCenterFragment() {
-        // Required empty public constructor
-    }
+    private Button btnAddAdoptionPost;
 
-    public void init() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Add the necessary import statements
-        activity = getActivity();
-        adoptionCenterListView = view.findViewById(R.id.lvAdoptionCenter);
-        fillListView();
-        searchView = view.findViewById(R.id.svAdoptionCenter);
-        createPostButton = view.findViewById(R.id.btnCreatePost);
-        // Set up the search view
-        // Add the necessary import statements
+        View view = inflater.inflate(R.layout.fragment_adoption_center, container, false);
 
-        createPostButton.setOnClickListener(new View.OnClickListener() {
+        // Find the RecyclerView in the layout
+        recyclerView = view.findViewById(R.id.rvAdoptionCenter);
+
+        // Set up the RecyclerView with a LinearLayoutManager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Retrieve adoption posts from Firestore and update UI
+        retrieveAdoptionPosts();
+
+        btnAddAdoptionPost = view.findViewById(R.id.btnCreatePost);
+        btnAddAdoptionPost.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // POST OLUŞTURUCAK FRAGMENTE GİDER??????????????????????????????????????????????????????????????
-                //((HomeActivity) activity).changeFragment(new PostCreateFragment());
-
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Handle query submission if needed
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Filter the ListView based on the search text
-
-                // Assuming your ListView has an adapter, you can call getFilter() on it
-                if (adoptionCenterListView.getAdapter() instanceof Filterable) {
-                    ((Filterable) adoptionCenterListView.getAdapter()).getFilter().filter(newText);
-                }
-
-                return false;
+            public void onClick(View v) {
+                //BURAYA YENİ BİR SAYFA AÇTIRACAĞIZ
+                Animal animal = new Animal("Dog", "A cute dog", "1", "Dog");
+                addAdoptionPost("Dog for adoption", "A cute dog for adoption", "San Francisco", animal, "Available", "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
             }
         });
 
-        
-        
-    }
-    public static AdoptionCenterFragment newInstance(String param1, String param2) {
-        AdoptionCenterFragment fragment = new AdoptionCenterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        return view;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    private void retrieveAdoptionPosts() {
+        List<AdoptionPost> adoptionArrayList = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection("adoptions").get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String title = document.getString("title");
+                            String description = document.getString("description");
+                            String location = document.getString("location");
+                            String animalName = document.getString("animal_name");  // Change this to match your Firestore field name
+                            String animalDescription = document.getString("animal_description");  // Change this to match your Firestore field name
+                            String animalAge = document.getString("animal_age");  // Change this to match your Firestore field name
+                            String animalType = document.getString("animal_type");  // Change this to match your Firestore field name
+
+                            Animal animal = new Animal(animalName, animalDescription, animalAge, animalType);
+                            String availability = document.getString("availability");
+                            String image = document.getString("image");
+
+                            AdoptionPost adoptionPost = new AdoptionPost(image, title, description, location, animal, availability);
+                            adoptionArrayList.add(adoptionPost);
+                        }
+                        updateUI(adoptionArrayList);
+                    }
+                });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_adoption_center, container, false);
-        init();
+    private void updateUI(List<AdoptionPost> adoptionArrayList) {
 
-        return view; }
-
-
-    public void fillListView() {
-        // Create an ArrayList of CustomListItem objects
-        ArrayList<CustomListItem> dataList = new ArrayList<>();
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save a Life"));
-
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save 2a Life"));
-        dataList.add(new CustomListItem(R.drawable.cat_dog_ic, "Save 3a Life"));
-        // Set up the ListView and custom adapter
-        adapter = new CustomListAdapter(requireContext(), dataList);
-        adoptionCenterListView.setAdapter(adapter);
+        adoptionPostAdapter = new AdoptionPostAdapter(adoptionArrayList);
+        recyclerView.setAdapter(adoptionPostAdapter);
     }
+
+    private void addAdoptionPost(String title, String description, String location, Animal animal, String availability, String image) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        Map<String, Object> adoptionPost = new HashMap<>();
+        adoptionPost.put("title", title);
+        adoptionPost.put("description", description);
+        adoptionPost.put("location", location);
+        adoptionPost.put("animal_name", animal.getName());  // Change this to match your Firestore field name
+        adoptionPost.put("animal_description", animal.getDescription());  // Change this to match your Firestore field name
+        adoptionPost.put("animal_age", animal.getAge());  // Change this to match your Firestore field name
+        adoptionPost.put("animal_type", animal.getType());  // Change this to match your Firestore field name
+        adoptionPost.put("availability", availability);
+        adoptionPost.put("image", image);
+
+        FirebaseFirestore.getInstance().collection("adoptions").document(auth.getCurrentUser().getUid()).collection("posts").add(adoptionPost)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Adoption post added successfully!", Toast.LENGTH_SHORT).show();
+                        retrieveAdoptionPosts();
+                    } else {
+                        Toast.makeText(getActivity(), "Error adding adoption post: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
