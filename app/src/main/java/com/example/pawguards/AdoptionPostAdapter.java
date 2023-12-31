@@ -1,18 +1,14 @@
 package com.example.pawguards;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapter.ViewHolderAdopt>  {
@@ -45,7 +41,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     @NonNull
     @Override
     public ViewHolderAdopt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adoption_item, parent, false);
         return new ViewHolderAdopt(view);
     }
 

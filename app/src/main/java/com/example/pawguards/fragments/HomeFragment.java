@@ -13,12 +13,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.AdoptionPostAdapter;
-import com.example.pawguards.CustomListItem;
 import com.example.pawguards.R;
-
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -78,8 +74,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Handle item click here
-                CustomListItem selectedItem = (CustomListItem) parent.getItemAtPosition(position);
-                Toast.makeText(requireContext(), "Clicked: " + selectedItem.getText(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -29,12 +29,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AdoptionCenterFragment extends Fragment {
-
     private RecyclerView recyclerView;
-
     private AdoptionPostAdapter adoptionPostAdapter;
-
     private Button btnAddAdoptionPost;
+    private List<AdoptionPost> adoptionArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +47,7 @@ public class AdoptionCenterFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Retrieve adoption posts from Firestore and update UI
+        adoptionArrayList = new ArrayList<>();
         retrieveAdoptionPosts();
 
         btnAddAdoptionPost = view.findViewById(R.id.btnCreatePost);
@@ -57,7 +56,7 @@ public class AdoptionCenterFragment extends Fragment {
             public void onClick(View v) {
                 //BURAYA YENİ BİR SAYFA AÇTIRACAĞIZ
                 Animal animal = new Animal("Dog", "A cute dog", "1", "Dog");
-                addAdoptionPost("Dog for adoption", "A cute dog for adoption", "San Francisco", animal, "Available", "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
+                addAdoptionPost("Dog for adoption", "A cute dog for adoption", "San Francisco", animal, "Available", " ");
             }
         });
 
@@ -65,33 +64,34 @@ public class AdoptionCenterFragment extends Fragment {
     }
 
     private void retrieveAdoptionPosts() {
-        List<AdoptionPost> adoptionArrayList = new ArrayList<>();
-        FirebaseFirestore.getInstance().collection("adoptions").get()
+        FirebaseFirestore.getInstance().collection("adoptions").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("posts").get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            System.out.println(document.getId() + " => " + document.getData());
                             String title = document.getString("title");
                             String description = document.getString("description");
                             String location = document.getString("location");
-                            String animalName = document.getString("animal_name");  // Change this to match your Firestore field name
-                            String animalDescription = document.getString("animal_description");  // Change this to match your Firestore field name
-                            String animalAge = document.getString("animal_age");  // Change this to match your Firestore field name
-                            String animalType = document.getString("animal_type");  // Change this to match your Firestore field name
+                            String animalName = document.getString("animal_name");
+                            String animalDescription = document.getString("animal_description");
+                            String animalAge = document.getString("animal_age");
+                            String animalType = document.getString("animal_type");
 
                             Animal animal = new Animal(animalName, animalDescription, animalAge, animalType);
                             String availability = document.getString("availability");
-                            String image = document.getString("image");
-
-                            AdoptionPost adoptionPost = new AdoptionPost(image, title, description, location, animal, availability);
+                            //String image = document.getString("image");
+                            AdoptionPost adoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
                             adoptionArrayList.add(adoptionPost);
                         }
                         updateUI(adoptionArrayList);
+                    } else {
+                        Toast.makeText(getActivity(), "Error retrieving adoption posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void updateUI(List<AdoptionPost> adoptionArrayList) {
 
+    private void updateUI(List<AdoptionPost> adoptionArrayList) {
         adoptionPostAdapter = new AdoptionPostAdapter(adoptionArrayList);
         recyclerView.setAdapter(adoptionPostAdapter);
     }
@@ -103,22 +103,25 @@ public class AdoptionCenterFragment extends Fragment {
         adoptionPost.put("title", title);
         adoptionPost.put("description", description);
         adoptionPost.put("location", location);
-        adoptionPost.put("animal_name", animal.getName());  // Change this to match your Firestore field name
-        adoptionPost.put("animal_description", animal.getDescription());  // Change this to match your Firestore field name
-        adoptionPost.put("animal_age", animal.getAge());  // Change this to match your Firestore field name
-        adoptionPost.put("animal_type", animal.getType());  // Change this to match your Firestore field name
+        adoptionPost.put("animal_name", animal.getName());
+        adoptionPost.put("animal_description", animal.getDescription());
+        adoptionPost.put("animal_age", animal.getAge());
+        adoptionPost.put("animal_type", animal.getType());
         adoptionPost.put("availability", availability);
-        adoptionPost.put("image", image);
+        //adoptionPost.put("image", image);
 
         FirebaseFirestore.getInstance().collection("adoptions").document(auth.getCurrentUser().getUid()).collection("posts").add(adoptionPost)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(), "Adoption post added successfully!", Toast.LENGTH_SHORT).show();
-                        retrieveAdoptionPosts();
+                        AdoptionPost newAdoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
+                        adoptionArrayList.add(newAdoptionPost);  // Add the new post to the list
+                        updateUI(adoptionArrayList);
                     } else {
                         Toast.makeText(getActivity(), "Error adding adoption post: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
 }
