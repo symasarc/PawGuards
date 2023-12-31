@@ -87,11 +87,11 @@ public class AdoptionCenterFragment extends Fragment {
                              String location = document.getString("location");
                              String animalName = document.getString("animal_name");
                              String animalDescription = document.getString("animal_description");
-//                             int animalAge = Integer.parseInt(document.getString("animal_age"));
+                             int animalAge = document.getLong("animal_age").intValue();
                              String animalType = document.getString("animal_type");
                              String animalGender = document.getString("animal_gender");
 
-                             Animal animal = new Animal(animalName, animalDescription, 21, animalType, animalGender);
+                             Animal animal = new Animal(animalName, animalDescription, animalAge, animalType, animalGender);
 
                              String availability = document.getString("availability");
                              //String image = document.getString("image");
