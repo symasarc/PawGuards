@@ -13,10 +13,11 @@ public class User {
     private List<AdoptionPost> adoptionPosts;
     private String country;
     private String gender;
+    private String profilePicture;
 
 
     public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country, String gender) {
-        //this.profilePicture = profilePicture;
+        this.profilePicture = profilePicture;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -40,9 +41,9 @@ public class User {
         return email;
     }
 
-    //public String getProfilePicture() {
-    //    return profilePicture;
-    //}
+    public String getProfilePicture() {
+        return profilePicture;
+    }
 
     public String getUid() {
         return uid;
@@ -72,9 +73,9 @@ public class User {
         this.email = email;
     }
 
-    //public void setProfilePicture(String profilePicture) {
-    //    this.profilePicture = profilePicture;
-    //}
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -113,7 +114,7 @@ public class User {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-    //            ", profilePicture='" + profilePicture + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
                 ", uid='" + uid + '\'' +
                 ", donationsMade=" + donationsMade +
                 ", animalsAdopted=" + animalsAdopted +
