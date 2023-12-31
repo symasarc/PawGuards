@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.pawguards.fragments.CreateAccountFragment;
+import com.example.pawguards.fragments.LoginFragment;
 import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Fragment createAccountFragment = new CreateAccountFragment();
-        transaction.replace(R.id.container, createAccountFragment).commit();
+        Fragment loginFragment = new LoginFragment();
+        transaction.replace(R.id.container, loginFragment).commit();
 
     }
 }

@@ -3,7 +3,7 @@
     android:id="@+id/homeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF9C9C"
+    android:background="#1C184C"
     tools:context=".HomeActivity">
 
     <!-- Empty or minimal content area -->
@@ -20,7 +20,7 @@
     <LinearLayout
         android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:background="@drawable/navbar"
@@ -28,36 +28,40 @@
         <ImageView
             android:id="@+id/navButton1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/home_selected"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />
         <ImageView
             android:id="@+id/navButton2"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_notifications_black_24dp"
+            android:src="@drawable/paw"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />
         <ImageView
             android:id="@+id/navButton3"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_dashboard_black_24dp"
+            android:src="@drawable/heart_outline"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />
         <ImageView
             android:id="@+id/navButton4"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/account"
             android:layout_margin="8dp"
             android:onClick="onHomeClick"
             />

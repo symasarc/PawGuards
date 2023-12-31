@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBBED3"
+    android:background="@drawable/app_background"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
 
@@ -41,9 +41,8 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:divider="@null"
-        android:dividerHeight="2dp"
+        android:dividerHeight="6dp"
         >
-
     </ListView>
 
 </LinearLayout>

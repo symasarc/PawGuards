@@ -187,5 +187,15 @@ public class LoginFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if(user != null){
+            startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+            getActivity().finish();
+        }
+    }
 
 }

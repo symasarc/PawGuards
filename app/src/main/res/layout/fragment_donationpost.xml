@@ -4,7 +4,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background">
 
     <!-- Header -->
     <TextView
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Donation and Fundraising"
         android:textSize="24sp"
-        android:textColor="#333333"
+        android:textColor="#FFFFFF"
         android:gravity="center"
         android:padding="16dp" />
 

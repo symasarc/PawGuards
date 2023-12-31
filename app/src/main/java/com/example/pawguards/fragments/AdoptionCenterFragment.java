@@ -1,9 +1,11 @@
 package com.example.pawguards.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filterable;
 import android.widget.ListView;
 
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pawguards.CustomListAdapter;
 import com.example.pawguards.CustomListItem;
+import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
 
 import java.util.ArrayList;
@@ -20,9 +23,11 @@ import android.widget.Filter;
 public class AdoptionCenterFragment extends Fragment {
 
     private View view;
+    private Activity activity;
     private SearchView searchView;
     private CustomListAdapter adapter;
     private ListView adoptionCenterListView;
+    private Button createPostButton;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -36,14 +41,22 @@ public class AdoptionCenterFragment extends Fragment {
     public void init() {
 
         // Add the necessary import statements
-
+        activity = getActivity();
         adoptionCenterListView = view.findViewById(R.id.lvAdoptionCenter);
         fillListView();
         searchView = view.findViewById(R.id.svAdoptionCenter);
-
+        createPostButton = view.findViewById(R.id.btnCreatePost);
         // Set up the search view
         // Add the necessary import statements
 
+        createPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // POST OLUŞTURUCAK FRAGMENTE GİDER??????????????????????????????????????????????????????????????
+                //((HomeActivity) activity).changeFragment(new PostCreateFragment());
+
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
