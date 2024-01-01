@@ -1,6 +1,5 @@
 package com.example.pawguards.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +16,7 @@ import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.Animal;
 import com.example.pawguards.HomeActivity;
-import androidx.annotation.NonNull;
+
 import com.example.pawguards.R;
 import com.example.pawguards.RecyclerViewInterface;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,11 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdoptionCenterFragment extends Fragment implements RecyclerViewInterface {
+public class AdoptionCenterFragment extends Fragment implements RecyclerViewInterface, SearchView.OnQueryTextListener {
     private RecyclerView recyclerView;
     private AdoptionPostAdapter adoptionPostAdapter;
     private Button btnAddAdoptionPost;
     private List<AdoptionPost> adoptionArrayList;
+    private SearchView svAdoptionCenter;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
 
@@ -56,6 +57,9 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         adoptionArrayList = new ArrayList<>();
         retrieveAdoptionPosts();
 
+        svAdoptionCenter = view.findViewById(R.id.svAdoptionCenter);
+        svAdoptionCenter.setOnQueryTextListener(this);
+
         btnAddAdoptionPost = view.findViewById(R.id.btnCreatePost);
         btnAddAdoptionPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +70,41 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         return view;
     }
 
-     private void retrieveAdoptionPosts() {
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        // Handle the search query submission if needed
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        // Handle the search query change
+        filterAdoptionPosts(newText);
+        return true;
+    }
+
+    private void filterAdoptionPosts(String query) {
+        List<AdoptionPost> filteredList = new ArrayList<>();
+
+        for (AdoptionPost post : adoptionArrayList) {
+            // Customize this condition based on your filtering logic
+            boolean isMatch = post.getTitle().toLowerCase().contains(query.toLowerCase())
+                    || post.getDescription().toLowerCase().contains(query.toLowerCase())
+                    || post.getLocation().toLowerCase().contains(query.toLowerCase());
+
+            boolean isGenderMatch = query.equalsIgnoreCase("male") && "male".equalsIgnoreCase(post.getAnimal().getGender())
+                    || query.equalsIgnoreCase("female") && "female".equalsIgnoreCase(post.getAnimal().getGender());
+            boolean isAgeMatch = query.matches("\\d+") && Integer.parseInt(query) == post.getAnimal().getAge();
+
+            if (isMatch || isGenderMatch || isAgeMatch) {
+                filteredList.add(post);
+            }
+        }
+
+        updateUI(filteredList);
+    }
+
+    private void retrieveAdoptionPosts() {
          db.collection("Animals").get()
                  .addOnCompleteListener(task -> {
                      if (task.isSuccessful() && adoptionArrayList != null) {
