@@ -13,12 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="@android:color/background_dark"
-<<<<<<< Updated upstream
-        app:cardCornerRadius="12dp"
-        cardElevation="8dp">
-=======
         app:cardCornerRadius="@android:dimen/app_icon_size">
->>>>>>> Stashed changes
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,14 +52,9 @@
             <!-- Animal Image -->
             <ImageView
                 android:id="@+id/imageAnimal"
-<<<<<<< Updated upstream
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-=======
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
->>>>>>> Stashed changes
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher_background" />
@@ -74,16 +64,11 @@
                 android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< Updated upstream
-                android:paddingBottom="8dp"
-                android:textSize="24sp"
-=======
                 android:layout_marginTop="12dp"
                 android:text="Title"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="32sp"
->>>>>>> Stashed changes
                 android:textStyle="bold" />
 
             <!-- Description -->
