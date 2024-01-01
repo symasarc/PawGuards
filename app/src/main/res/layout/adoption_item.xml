@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/news_box"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="70dp"
-        android:layout_height="70dp">
+        android:layout_width="80dp"
+        android:layout_height="80dp">
 
         <ImageView
             android:id="@+id/itemImageView"
@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:orientation="vertical">
 
@@ -31,52 +31,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="Yumak"
+            android:text="Cute cat for adoption"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/itemDescriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="This is a description of the item. It provides additional information about the content displayed in the layout. You can customize this text based on your needs."
-            android:textColor="#8E8E8E"
-            android:textSize="14sp" />
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/itemDistanceTextView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/itemNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pamuk"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/itemAgeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="years old"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/itemGenderTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/itemLocationTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Turkey"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginLeft="12dp"
-                android:text="10km"
-                android:textColor="#8E8E8E"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                >
+                <TextView
+                    android:id="@+id/itemDescriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="This is a description of the item. It provides additional information about the content displayed in the layout. You can customize this text based on your needs."
+                    android:textColor="#D6D6D6"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/avaiableForTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Available for"
-                android:textColor="#5EB87C"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
-        </RelativeLayout>
+
+
+
+
+
 
     </LinearLayout>
 

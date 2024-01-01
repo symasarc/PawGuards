@@ -67,9 +67,10 @@ public class AdoptionCenterFragment extends Fragment {
             String animalType = getArguments().getString("species");
             String availability = getArguments().getString("availability");
             String image = getArguments().getString("image");
+            String gender = getArguments().getString("gender");
 
 
-            Animal animal = new Animal(animalName, description, Integer.parseInt(animalAge), animalType, "gender");
+            Animal animal = new Animal(animalName, description, Integer.parseInt(animalAge), animalType, gender);
             addAdoptionPost(title, description, location, animal, availability, image);
         }
 

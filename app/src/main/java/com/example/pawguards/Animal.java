@@ -24,6 +24,9 @@ public class Animal {
     public int getAge() {
         return age;
     }
+    public String getStringAge() {
+        return String.valueOf(age);
+    }
 
     public String getType() {
         return type;

@@ -39,6 +39,8 @@ public class PostCreationFragment extends Fragment {
     private EditText etName;
     private RadioGroup rgSpecies;
     private RadioButton rbDog, rbCat, rbBird, rbOther;
+    private RadioGroup rgGender;
+    private RadioButton rbMale, rbFemale;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -65,12 +67,23 @@ public class PostCreationFragment extends Fragment {
         rbCat = getView().findViewById(R.id.rbCat);
         rbBird = getView().findViewById(R.id.rbBird);
         rbOther = getView().findViewById(R.id.rbOther);
+        rgGender = getView().findViewById(R.id.rgGender);
+        rbMale = getView().findViewById(R.id.rbMale);
+        rbFemale = getView().findViewById(R.id.rbFemale);
 
 
 
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int selectedGenderButtonId = rgGender.getCheckedRadioButtonId();
+                String gender = "";
+                if(selectedGenderButtonId == rbMale.getId()){
+                    gender = "Male";
+                } else if(selectedGenderButtonId == rbFemale.getId()){
+                    gender = "Female";
+                }
 
                 int selectedRadioButtonId = rgSpecies.getCheckedRadioButtonId();
                 String species = "";
@@ -91,7 +104,7 @@ public class PostCreationFragment extends Fragment {
                 bundle.putString("age", etAge.getText().toString());
                 bundle.putString("name", etName.getText().toString());
                 bundle.putString("species", species);
-                bundle.putString("gender", "gender");
+                bundle.putString("gender", gender);
                 bundle.putString("availability", "available");
                 bundle.putString("image", "image");
 

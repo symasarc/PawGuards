@@ -16,6 +16,7 @@ public class AdoptionPost {
         this.location = location;
         this.animal = animal;
         this.availability = availability;
+
     }
 
     public String getTitle() {
@@ -57,6 +58,8 @@ public class AdoptionPost {
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
+
+
 
     public String getAvailability() {
         return availability;

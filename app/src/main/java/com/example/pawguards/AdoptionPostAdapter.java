@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapter.ViewHolderAdopt>  {
+public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapter.ViewHolderAdopt> {
 
     private List<AdoptionPost> adoptionsList;
 
@@ -25,15 +25,20 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
         public TextView textAdoptTitle;
         public TextView textAdoptDescription;
         public TextView textAdoptLocation;
-        public TextView textAvailability;
+        public TextView textGender;
+        public TextView textAge;
+        public TextView textName;
 
         public ViewHolderAdopt(@NonNull View itemView) {
             super(itemView);
             imageAdopt = itemView.findViewById(R.id.itemImageView);
             textAdoptTitle = itemView.findViewById(R.id.itemTitleTextView);
             textAdoptDescription = itemView.findViewById(R.id.itemDescriptionTextView);
-            textAdoptLocation = itemView.findViewById(R.id.itemDistanceTextView);
-            textAvailability = itemView.findViewById(R.id.avaiableForTextView);
+            textAdoptLocation = itemView.findViewById(R.id.itemLocationTextView);
+            textAge = itemView.findViewById(R.id.itemAgeTextView);
+            textGender = itemView.findViewById(R.id.itemGenderTextView);
+            textName = itemView.findViewById(R.id.itemNameTextView);
+
         }
     }
 
@@ -48,13 +53,16 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAdopt holder, int position) {
 
-            AdoptionPost adoptionPost = adoptionsList.get(position);
+        AdoptionPost adoptionPost = adoptionsList.get(position);
 
 //            holder.imageAdopt.setImageResource(Integer.parseInt(adoptionPost.getImage()));
-            holder.textAdoptTitle.setText(adoptionPost.getTitle());
-            holder.textAdoptDescription.setText(adoptionPost.getDescription());
-            holder.textAdoptLocation.setText(adoptionPost.getLocation());
-            holder.textAvailability.setText(adoptionPost.getAvailability());
+        holder.textAdoptTitle.setText(adoptionPost.getTitle());
+        holder.textAdoptDescription.setText(adoptionPost.getDescription());
+        holder.textAdoptLocation.setText(adoptionPost.getLocation());
+        holder.textAge.setText(adoptionPost.getAnimal().getStringAge());
+        holder.textGender.setText(adoptionPost.getAnimal().getGender());
+        holder.textName.setText(adoptionPost.getAnimal().getName());
+
     }
 
     @Override
