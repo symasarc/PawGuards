@@ -24,6 +24,7 @@
                 android:id="@+id/ivProfilePicture"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher_background" />
 
             <LinearLayout
