@@ -1,16 +1,23 @@
 package com.example.pawguards.fragments;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -18,18 +25,30 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.Animal;
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.local.ReferenceSet;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PostCreationFragment extends Fragment {
-
+    private final int GALLERY_REQUEST_CODE = 1000;
     private View view;
     private boolean imageRecievedFlag = false;
     private Button btnBack;
@@ -43,13 +62,10 @@ public class PostCreationFragment extends Fragment {
     private RadioButton rbDog, rbCat, rbBird, rbOther;
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
+    private ImageView animPicture;
+    private FirebaseAuth auth;
+    private FirebaseStorage firebaseStorage;
+    private FirebaseFirestore db;
     public PostCreationFragment() {
         // Required empty public constructor
     }
@@ -72,6 +88,10 @@ public class PostCreationFragment extends Fragment {
         rgGender = getView().findViewById(R.id.rgGender);
         rbMale = getView().findViewById(R.id.rbMale);
         rbFemale = getView().findViewById(R.id.rbFemale);
+        animPicture = getView().findViewById(R.id.imageView);
+        auth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        db = FirebaseFirestore.getInstance();
 
 
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +123,6 @@ public class PostCreationFragment extends Fragment {
                 String location = spCountry.getSelectedItem().toString();
                 String age = etAge.getText().toString();
                 String name = etName.getText().toString();
-                String availability = "available";
-                String image = "image";
 
                 if (title.isEmpty() || title.equals(" ")) {
                     etTitle.setError("Please input valid title");
@@ -141,24 +159,87 @@ public class PostCreationFragment extends Fragment {
                     return;
                 }
 
-//                if(!imageRecievedFlag){
-//                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(!imageRecievedFlag){
+                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                DocumentReference whoPosted = db.collection("users").document(auth.getCurrentUser().getUid());
 
 
-                Bundle bundle = new Bundle();
-                bundle.putString("title", title);
-                bundle.putString("description", description);
-                bundle.putString("location", location);
-                bundle.putString("age", age);
-                bundle.putString("name", name);
-                bundle.putString("species", species);
-                bundle.putString("gender", gender);
-                bundle.putString("availability", "available");
-                bundle.putString("image", "image");
+                Map<String, Object> animal = new HashMap<>();
+                animal.put("age", Integer.parseInt(etAge.getText().toString()));
+                animal.put("animalPic", null);
+                animal.put("description", etDescription.getText().toString());
+                animal.put("gender", gender);
+                animal.put("isAdopted", false);
+                animal.put("title", etTitle.getText().toString());
+                animal.put("name", etName.getText().toString());
+                animal.put("type", species);
+                animal.put("whoAdopted", null);
+                animal.put("whoPosted", whoPosted);
 
-                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment(), bundle);
+                AtomicReference<String> animalID = new AtomicReference<>();
+
+                db.collection("Animals").add(animal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        animalID.set(documentReference.getId());
+                    }
+                });
+
+                //photo upload and updating user's adoptionPosts
+                if (animPicture.getDrawable() != null) {
+                    StorageReference storageRef = firebaseStorage.getReference().child("images/Animals/" + animalID.get());
+
+                    // Get the data from an ImageView as bytes
+                    animPicture.setDrawingCacheEnabled(true);
+                    animPicture.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) animPicture.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] data = baos.toByteArray();
+
+                    UploadTask uploadTask = storageRef.putBytes(data);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            Toast.makeText(getActivity().getApplicationContext(), "Upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                            // ...
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    //updating animal's profilePicture
+                                    db.collection("Animals").document(animalID.get()).update("profilePicture", uri.toString());
+
+                                    //updating user's adoptionPosts
+                                    db.collection("Users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful() && task.getResult() != null){
+                                                DocumentSnapshot documentSnapshot = task.getResult();
+                                                Map<String, Object> user = documentSnapshot.getData();
+                                                List<DocumentReference> list = (List<DocumentReference>) user.get("adoptionPosts");
+                                                list.add(db.collection("Animals").document(animalID.get()));
+                                                db.collection("Users").document(auth.getCurrentUser().getUid()).update("adoptionPosts", list);
+                                            }
+                                        }
+                                    });
+
+
+                                    Toast.makeText(getActivity().getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
             }
         });
 
@@ -182,32 +263,22 @@ public class PostCreationFragment extends Fragment {
             }
         });
 
+        animPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery, GALLERY_REQUEST_CODE);
+            }
+        });
+
 
     }
-
-    public static PostCreationFragment newInstance(String param1, String param2) {
-        PostCreationFragment fragment = new PostCreationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_post_creation, container, false);
+        view =inflater.inflate(R.layout.fragment_post_creation, container, false);
 
         return view;
     }
@@ -218,6 +289,18 @@ public class PostCreationFragment extends Fragment {
 
         init();
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //handle result of picked image
+        if (resultCode == getActivity().RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            //set image to image view
+            animPicture.setImageURI(data.getData());
+            imageRecievedFlag = true;
+        }
     }
 
 

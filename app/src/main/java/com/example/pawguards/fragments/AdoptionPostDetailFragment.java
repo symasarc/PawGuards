@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
 
 public class AdoptionPostDetailFragment extends Fragment {
@@ -24,6 +26,14 @@ public class AdoptionPostDetailFragment extends Fragment {
         TextView textLocation = view.findViewById(R.id.textLocation);
         TextView textAnimalDetails = view.findViewById(R.id.textAnimalDetails);
         TextView textAvailability = view.findViewById(R.id.textAvailability);
+        Button btnBack = view.findViewById(R.id.buttonBack);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
+            }
+        });
 
         // Get data from arguments
         Bundle args = getArguments();

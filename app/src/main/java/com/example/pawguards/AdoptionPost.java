@@ -2,7 +2,7 @@ package com.example.pawguards;
 
 public class AdoptionPost {
 
-//    private String image;
+    private String image;
     private String title;
     private String description;
     private String location;
@@ -10,7 +10,7 @@ public class AdoptionPost {
     private String availability;
 
     public AdoptionPost(String image, String title, String description, String location, Animal animal, String availability) {
- //       this.image = image;
+        this.image = image;
         this.title = title;
         this.description = description;
         this.location = location;
@@ -31,9 +31,9 @@ public class AdoptionPost {
         return location;
     }
 
-//    public String getImage() {
-//        return image;
-//    }
+    public String getImage() {
+        return image;
+    }
 
     public Animal getAnimal() {
         return animal;
@@ -51,9 +51,9 @@ public class AdoptionPost {
         this.location = location;
     }
 
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
