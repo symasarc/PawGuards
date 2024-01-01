@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/seoulhangang_cb_regular"
         android:paddingBottom="50dp"
-        android:text="Home\nPawest\nHome"
+        android:text="Home\nPaweet\nHome"
         android:textColor="#FFFFFF"
         android:textSize="60sp" />
 

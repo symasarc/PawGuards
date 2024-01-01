@@ -1,9 +1,8 @@
-<!-- res/layout/fragment_adoption_post_detail.xml -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/app_background"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -11,17 +10,19 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="#ffffff"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp">
-
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="@android:color/background_dark"
+        app:cardCornerRadius="@android:dimen/app_icon_size"
+        cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#3A345E"
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Back Button -->
             <Button
                 android:id="@+id/buttonBack"
                 android:layout_width="70dp"
@@ -29,54 +30,55 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="#FF4081"
-                android:textSize="44sp"></Button>
+                android:background="@drawable/arrow_left"
+                android:textSize="44sp" />
 
+            <!-- Animal Image -->
             <ImageView
                 android:id="@+id/imageAnimal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:paddingTop="8dp"/>
+                android:paddingTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
 
             <!-- Title -->
             <TextView
                 android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <!-- Description -->
             <TextView
                 android:id="@+id/textDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp" />
 
             <!-- Location -->
             <TextView
                 android:id="@+id/textLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp" />
 
             <!-- Animal Details -->
             <TextView
                 android:id="@+id/textAnimalDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp" />
 
             <!-- Availability -->
             <TextView
                 android:id="@+id/textAvailability"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
