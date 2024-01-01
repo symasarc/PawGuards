@@ -1,0 +1,70 @@
+<!-- res/layout/fragment_adoption_post_detail.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- CardView for a better visual appearance -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cardBackgroundColor="#ffffff"
+        android:cardCornerRadius="8dp"
+        android:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:paddingTop="8dp"/>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/textDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"/>
+
+            <!-- Location -->
+            <TextView
+                android:id="@+id/textLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"/>
+
+            <!-- Animal Details -->
+            <TextView
+                android:id="@+id/textAnimalDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"/>
+
+            <!-- Availability -->
+            <TextView
+                android:id="@+id/textAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

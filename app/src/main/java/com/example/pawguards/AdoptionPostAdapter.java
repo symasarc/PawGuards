@@ -13,10 +13,12 @@ import java.util.List;
 
 public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapter.ViewHolderAdopt> {
 
+    private final RecyclerViewInterface recyclerViewInterface;
     private List<AdoptionPost> adoptionsList;
 
-    public AdoptionPostAdapter(List<AdoptionPost> adoptionsList) {
+    public AdoptionPostAdapter(RecyclerViewInterface recyclerViewInterface, List<AdoptionPost> adoptionsList) {
         this.adoptionsList = adoptionsList;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     public static class ViewHolderAdopt extends RecyclerView.ViewHolder {
@@ -29,7 +31,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
         public TextView textAge;
         public TextView textName;
 
-        public ViewHolderAdopt(@NonNull View itemView) {
+        public ViewHolderAdopt(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             imageAdopt = itemView.findViewById(R.id.itemImageView);
             textAdoptTitle = itemView.findViewById(R.id.itemTitleTextView);
@@ -39,6 +41,18 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
             textGender = itemView.findViewById(R.id.itemGenderTextView);
             textName = itemView.findViewById(R.id.itemNameTextView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.OnItemClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 
@@ -47,7 +61,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     @Override
     public ViewHolderAdopt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adoption_item, parent, false);
-        return new ViewHolderAdopt(view);
+        return new ViewHolderAdopt(view, recyclerViewInterface);
     }
 
     @Override

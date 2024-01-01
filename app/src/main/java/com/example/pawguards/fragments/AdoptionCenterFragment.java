@@ -1,5 +1,6 @@
 package com.example.pawguards.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.pawguards.Animal;
 import com.example.pawguards.HomeActivity;
 import androidx.annotation.NonNull;
 import com.example.pawguards.R;
+import com.example.pawguards.RecyclerViewInterface;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdoptionCenterFragment extends Fragment {
+public class AdoptionCenterFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView recyclerView;
     private AdoptionPostAdapter adoptionPostAdapter;
     private Button btnAddAdoptionPost;
@@ -108,7 +110,7 @@ public class AdoptionCenterFragment extends Fragment {
 
 
      private void updateUI(List<AdoptionPost> adoptionArrayList) {
-         adoptionPostAdapter = new AdoptionPostAdapter(adoptionArrayList);
+         adoptionPostAdapter = new AdoptionPostAdapter(this, adoptionArrayList);
          recyclerView.setAdapter(adoptionPostAdapter);
      }
 
@@ -140,4 +142,21 @@ public class AdoptionCenterFragment extends Fragment {
                  });
      }
 
+    @Override
+    public void OnItemClick(int position) {
+        AdoptionPostDetailFragment adoptionPostDetailFragment = new AdoptionPostDetailFragment();
+        AdoptionPost adoptionPost = adoptionArrayList.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("title", adoptionPost.getTitle());
+        bundle.putString("description", adoptionPost.getDescription());
+        bundle.putString("location", adoptionPost.getLocation());
+        bundle.putString("age", String.valueOf(adoptionPost.getAnimal().getAge()));
+        bundle.putString("name", adoptionPost.getAnimal().getName());
+        bundle.putString("image", adoptionPost.getImage());//Hatalı burası image yorumda olduğundan dolayı
+
+
+        adoptionPostDetailFragment.setArguments(bundle);
+        ((HomeActivity) getActivity()).changeFragment(adoptionPostDetailFragment);
+    }
 }
