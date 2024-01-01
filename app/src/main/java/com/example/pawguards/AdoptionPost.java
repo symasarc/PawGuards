@@ -31,9 +31,9 @@ public class AdoptionPost {
         return location;
     }
 
-//    public String getImage() {
-//        return image;
-//    }
+    public String getImage() {
+        return image;
+    }
 
     public Animal getAnimal() {
         return animal;
@@ -51,9 +51,9 @@ public class AdoptionPost {
         this.location = location;
     }
 
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public void setAnimal(Animal animal) {
         this.animal = animal;

@@ -89,7 +89,7 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
 
                                  String availability = document.getString("availability");
 
-                                 AdoptionPost adoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
+                                 AdoptionPost adoptionPost = new AdoptionPost(image, title, description, location, animal, availability);
                                  adoptionArrayList.add(adoptionPost);
                              }
                          }

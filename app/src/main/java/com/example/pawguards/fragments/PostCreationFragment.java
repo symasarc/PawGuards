@@ -123,8 +123,6 @@ public class PostCreationFragment extends Fragment {
                 String location = spCountry.getSelectedItem().toString();
                 String age = etAge.getText().toString();
                 String name = etName.getText().toString();
-                String availability = "available";
-                String image = "image";
 
                 if (title.isEmpty() || title.equals(" ")) {
                     etTitle.setError("Please input valid title");
@@ -161,10 +159,10 @@ public class PostCreationFragment extends Fragment {
                     return;
                 }
 
-//                if(!imageRecievedFlag){
-//                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(!imageRecievedFlag){
+                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 DocumentReference whoPosted = db.collection("users").document(auth.getCurrentUser().getUid());
 
 
@@ -218,8 +216,6 @@ public class PostCreationFragment extends Fragment {
                                 public void onSuccess(Uri uri) {
                                     //updating animal's profilePicture
                                     db.collection("Animals").document(animalID.get()).update("profilePicture", uri.toString());
-
-
 
                                     //updating user's adoptionPosts
                                     db.collection("Users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -303,6 +299,7 @@ public class PostCreationFragment extends Fragment {
         if (resultCode == getActivity().RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
             //set image to image view
             animPicture.setImageURI(data.getData());
+            imageRecievedFlag = true;
         }
     }
 

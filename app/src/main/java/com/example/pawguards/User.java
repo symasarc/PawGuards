@@ -1,5 +1,7 @@
 package com.example.pawguards;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.List;
 
 public class User {
@@ -9,8 +11,8 @@ public class User {
     //private String profilePicture;
     private String uid;
     private List<Donation> donationsMade;
-    private List<Animal> animalsAdopted;
-    private List<AdoptionPost> adoptionPosts;
+    private List<DocumentReference> animalsAdopted;
+    private List<DocumentReference> adoptionPosts;
     private String country;
     private String gender;
     private String profilePicture;
@@ -19,7 +21,7 @@ public class User {
     }
 
 
-    public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<Animal> animalsAdopted, List<AdoptionPost> adoptionPosts, String country, String gender) {
+    public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<DocumentReference> animalsAdopted, List<DocumentReference> adoptionPosts, String country, String gender) {
         this.profilePicture = profilePicture;
         this.name = name;
         this.surname = surname;
@@ -56,11 +58,11 @@ public class User {
         return donationsMade;
     }
 
-    public List<Animal> getAnimalsAdopted() {
+    public List<DocumentReference> getAnimalsAdopted() {
         return animalsAdopted;
     }
 
-    public List<AdoptionPost> getAdoptionPosts() {
+    public List<DocumentReference> getAdoptionPosts() {
         return adoptionPosts;
     }
 
@@ -88,11 +90,11 @@ public class User {
         this.donationsMade = donationsMade;
     }
 
-    public void setAnimalsAdopted(List<Animal> animalsAdopted) {
+    public void setAnimalsAdopted(List<DocumentReference> animalsAdopted) {
         this.animalsAdopted = animalsAdopted;
     }
 
-    public void setAdoptionPosts(List<AdoptionPost> adoptionPosts) {
+    public void setAdoptionPosts(List<DocumentReference> adoptionPosts) {
         this.adoptionPosts = adoptionPosts;
     }
     public String getCountry() {
