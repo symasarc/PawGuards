@@ -22,11 +22,13 @@ public class AdoptionPostDetailFragment extends Fragment {
         // Find TextViews in the layout
         ImageView imageAnimal = view.findViewById(R.id.imageAnimal);
         TextView textTitle = view.findViewById(R.id.textTitle);
+        TextView textName = view.findViewById(R.id.textName);
+        TextView textAge = view.findViewById(R.id.textAge);
+        TextView textGender = view.findViewById(R.id.textGender);
         TextView textDescription = view.findViewById(R.id.textDescription);
         TextView textLocation = view.findViewById(R.id.textLocation);
-        TextView textAnimalDetails = view.findViewById(R.id.textAnimalDetails);
-        TextView textAvailability = view.findViewById(R.id.textAvailability);
         Button btnBack = view.findViewById(R.id.buttonBack);
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,17 +41,21 @@ public class AdoptionPostDetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             String title = args.getString("title", "");
+            String name = args.getString("name", "");
+            String age = args.getString("age", "");
+            String gender = args.getString("gender", "");
             String description = args.getString("description", "");
             String location = args.getString("location", "");
             String animalDetails = args.getString("animalDetails", "");
             String availability = args.getString("availability", "");
+            String image = args.getString("image", "");
+
 
             // Set data to TextViews
             textTitle.setText(title);
+
             textDescription.setText(description);
             textLocation.setText(location);
-            textAnimalDetails.setText(animalDetails);
-            textAvailability.setText(availability);
 
         }
 

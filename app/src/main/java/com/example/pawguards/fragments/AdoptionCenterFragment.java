@@ -149,14 +149,15 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         AdoptionPost adoptionPost = adoptionArrayList.get(position);
 
         Bundle bundle = new Bundle();
+        bundle.putString("image", adoptionPost.getImage());
         bundle.putString("title", adoptionPost.getTitle());
-        bundle.putString("description", adoptionPost.getDescription());
-        bundle.putString("location", adoptionPost.getLocation());
-        bundle.putString("age", String.valueOf(adoptionPost.getAnimal().getAge()));
         bundle.putString("name", adoptionPost.getAnimal().getName());
-
+        bundle.putString("age", String.valueOf(adoptionPost.getAnimal().getAge()));
+        bundle.putString("location", adoptionPost.getLocation());
+        bundle.putString("description", adoptionPost.getDescription());
 
         adoptionPostDetailFragment.setArguments(bundle);
+
         ((HomeActivity) getActivity()).changeFragment(adoptionPostDetailFragment);
     }
 }
