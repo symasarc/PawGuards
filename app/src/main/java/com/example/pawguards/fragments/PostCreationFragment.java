@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.local.ReferenceSet;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -217,11 +219,9 @@ public class PostCreationFragment extends Fragment {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                     if(task.isSuccessful() && task.getResult() != null){
-                                                        DocumentSnapshot documentSnapshot = task.getResult();
-                                                        Map<String, Object> user = documentSnapshot.getData();
-                                                        List<DocumentReference> list = (List<DocumentReference>) user.get("adoptionPosts");
-                                                        list.add(db.collection("Animals").document(documentReference.getId()));
-                                                        db.collection("Users").document(auth.getCurrentUser().getUid()).update("adoptionPosts", list);
+                                                        db.collection("Users").document(auth.getCurrentUser().getUid()).
+                                                                update("adoptionPosts", FieldValue.
+                                                                        arrayUnion(db.collection("Animals").document(documentReference.getId())));
                                                     }
                                                 }
                                             });
