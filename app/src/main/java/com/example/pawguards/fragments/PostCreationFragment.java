@@ -31,6 +31,7 @@ import java.util.Map;
 public class PostCreationFragment extends Fragment {
 
     private View view;
+    private boolean imageRecievedFlag = false;
     private Button btnBack;
     private Button btnCreatePost;
     private Spinner spCountry;
@@ -139,6 +140,11 @@ public class PostCreationFragment extends Fragment {
                     Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+//                if(!imageRecievedFlag){
+//                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
 
                 Bundle bundle = new Bundle();
