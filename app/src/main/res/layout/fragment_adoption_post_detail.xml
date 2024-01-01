@@ -1,46 +1,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background"
     android:orientation="vertical"
     android:padding="16dp">
 
     <!-- CardView for a better visual appearance -->
     <androidx.cardview.widget.CardView
+        cardElevation="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="@android:color/background_dark"
+<<<<<<< Updated upstream
         app:cardCornerRadius="12dp"
         cardElevation="8dp">
+=======
+        app:cardCornerRadius="@android:dimen/app_icon_size">
+>>>>>>> Stashed changes
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#3A345E"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
-            <!-- Back Button -->
-            <Button
-                android:id="@+id/buttonBack"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/arrow_left"
-                android:textSize="44sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Back Button -->
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/arrow_left"
+                    android:textSize="44sp" />
+                <!--       Avaible Text Title       -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/buttonBack"
+                    android:text="AVAIBLE"
+                    android:textAlignment="center"
+                    android:textColor="#12FF45"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <!-- Animal Image -->
             <ImageView
                 android:id="@+id/imageAnimal"
+<<<<<<< Updated upstream
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+=======
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+>>>>>>> Stashed changes
                 android:adjustViewBounds="true"
-                android:paddingTop="8dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher_background" />
 
             <!-- Title -->
@@ -48,8 +74,16 @@
                 android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< Updated upstream
                 android:paddingBottom="8dp"
                 android:textSize="24sp"
+=======
+                android:layout_marginTop="12dp"
+                android:text="Title"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+>>>>>>> Stashed changes
                 android:textStyle="bold" />
 
             <!-- Description -->
@@ -57,28 +91,163 @@
                 android:id="@+id/textDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp" />
+                android:layout_marginTop="6dp"
+                android:paddingBottom="8dp"
+                android:text="TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitl
+                TitleTitleTitleTitleTitleTitleTittleTitleTtleTitleTitleTitleTitleTitleTitleTitleTitleeTitleTitleTitleTitleTitleTitle"
+                android:textColor="#D1D1D1"
+                android:textSize="16sp" />
 
-            <!-- Location -->
+            <!--       Animal Details       -->
             <TextView
-                android:id="@+id/textLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp" />
+                android:layout_marginTop="6dp"
+                android:text="Animal Details"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <!-- Animal Details -->
-            <TextView
-                android:id="@+id/textAnimalDetails"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-            <!-- Availability -->
-            <TextView
-                android:id="@+id/textAvailability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <!-- Name -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name: "
+                            android:textColor="#DDDDDD"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textEnd"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Mitsy"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <!-- Age -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Age: "
+                            android:textColor="#DDDDDD"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textAge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textEnd"
+                            android:text="8 years old"
+                            android:layout_marginRight="16dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Gender -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Location: "
+                            android:textColor="#DDDDDD"
+                            android:layout_marginLeft="16dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:textAlignment="textEnd"
+                            android:layout_marginRight="12dp"
+                            android:text="Ankara"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!-- Gender -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gender: "
+                            android:textColor="#DDDDDD"
+
+                            android:layout_marginLeft="16dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:textAlignment="textEnd"
+                            android:layout_marginRight="12dp"
+                            android:text="Male"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!--       Adopt Button     -->
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/adopt_button"
+                android:text="Adopt"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
