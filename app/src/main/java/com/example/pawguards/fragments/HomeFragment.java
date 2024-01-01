@@ -1,6 +1,9 @@
 package com.example.pawguards.fragments;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -18,6 +21,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.R;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -52,24 +57,30 @@ public class HomeFragment extends Fragment {
         // Initialize the GestureDetector
         gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                startHeartAnimation();
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+            }
+
+            @Override
             public boolean onDown(MotionEvent e) {
-                // Called when a down motion event is detected
                 return true;
             }
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // Called when a fling gesture is detected
-                if (Math.abs(velocityX) > Math.abs(velocityY)) {
-                    // Horizontal swipe detected
-                    if (e2.getX() > e1.getX()) {
-                        // Right swipe detected
-                        Toast.makeText(requireContext(), "Right Swipe Detected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                }
-                return false;
+                return true;
             }
+
         });
 
         // Set up onTouchListener for gesture detection
@@ -110,12 +121,20 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         init();
-        fillListView();
 
         return view;
     }
+    public void startHeartAnimation() {
+        ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(heartImage, "rotation", 0f, 10f, -10f, 5f, -5f, 0f);
+        rotationAnim.setDuration(1000); // Set the duration of the animation in milliseconds
+        rotationAnim.setRepeatCount(4); // Repeat the animation indefinitely
+        rotationAnim.setRepeatMode(ObjectAnimator.REVERSE); // Reverse the animation on each iteration
 
-    public void fillListView() {
-
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(rotationAnim);
+        animatorSet.start();
     }
+
+
+
 }
