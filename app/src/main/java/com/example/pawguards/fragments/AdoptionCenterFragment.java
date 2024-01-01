@@ -83,7 +83,7 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
                                  Boolean isAdopted = document.getBoolean("isAdopted");
                                  DocumentReference whoAdopted = document.getDocumentReference("whoAdopted");
                                  DocumentReference whoPosted = document.getDocumentReference("whoPosted");
-                                 String image = document.getString("profilePicture");
+                                 String image = document.getString("animalPic");
 
                                  Animal animal = new Animal(animalName,animalAge,animalType,description, animalGender, isAdopted, whoAdopted, whoPosted, image, title, location);
 
