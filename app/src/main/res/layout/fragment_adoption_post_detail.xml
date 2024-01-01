@@ -22,6 +22,16 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="#FF4081"
+                android:textSize="44sp"></Button>
+
             <ImageView
                 android:id="@+id/imageAnimal"
                 android:layout_width="match_parent"
