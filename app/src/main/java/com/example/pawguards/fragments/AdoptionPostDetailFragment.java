@@ -1,6 +1,10 @@
 package com.example.pawguards.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +16,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
+
+import java.io.InputStream;
 
 public class AdoptionPostDetailFragment extends Fragment {
 
+    public FirebaseStorage firebaseStorage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adoption_post_detail, container, false);
@@ -46,16 +57,49 @@ public class AdoptionPostDetailFragment extends Fragment {
             String gender = args.getString("gender", "");
             String description = args.getString("description", "");
             String location = args.getString("location", "");
-            String animalDetails = args.getString("animalDetails", "");
-            String availability = args.getString("availability", "");
             String image = args.getString("image", "");
 
 
             // Set data to TextViews
             textTitle.setText(title);
-
+            textName.setText(name);
+            textAge.setText(age);
+            textGender.setText(gender);
             textDescription.setText(description);
             textLocation.setText(location);
+
+            // Set image
+            firebaseStorage = FirebaseStorage.getInstance();
+
+            new AsyncTask<Void, Void, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(Void... voids) {
+                    try {
+
+                        //get profile picture address from user object and download it
+                        StorageReference picRef = firebaseStorage.getReferenceFromUrl(image);
+                        // Get the StreamDownloadTask
+                        StreamDownloadTask streamTask = picRef.getStream();
+
+                        // Await completion and retrieve the InputStream
+                        InputStream inputStream = Tasks.await(streamTask).getStream();
+                        return BitmapFactory.decodeStream(inputStream);
+                    } catch (Exception e) {
+                        Log.e("PhotoDownload", "Error downloading image", e);
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap bitmap) {
+                    if (bitmap != null) {
+                        imageAnimal.setImageBitmap(bitmap);
+                    } else {
+                        // Handle download failure
+                    }
+                }
+            }.execute();
+
 
         }
 
