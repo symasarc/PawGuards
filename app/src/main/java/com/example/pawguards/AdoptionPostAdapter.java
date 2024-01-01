@@ -61,6 +61,11 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
         holder.textAdoptLocation.setText(adoptionPost.getLocation());
         holder.textAge.setText(adoptionPost.getAnimal().getStringAge());
         holder.textGender.setText(adoptionPost.getAnimal().getGender());
+        if(adoptionPost.getAnimal().getGender().toLowerCase().equals("male")){
+            holder.textGender.setTextColor(0xFF3360FF);
+        }else if(adoptionPost.getAnimal().getGender().toLowerCase().equals("female")){
+            holder.textGender.setTextColor(0xFFFF56EE);
+        }
         holder.textName.setText(adoptionPost.getAnimal().getName());
 
     }
