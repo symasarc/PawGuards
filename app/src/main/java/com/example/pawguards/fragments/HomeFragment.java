@@ -1,5 +1,7 @@
 package com.example.pawguards.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -20,9 +23,8 @@ public class HomeFragment extends Fragment {
 
     private View view;
     private ImageView heartImage;
-    private ListView newsView;
-    private AdoptionPostAdapter adapter;
     private GestureDetector gestureDetector;
+    private Button btnEmergency;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -35,9 +37,18 @@ public class HomeFragment extends Fragment {
     }
 
     public void init() {
-        newsView = view.findViewById(R.id.newsListView);
         heartImage = view.findViewById(R.id.heartImageView);
+        btnEmergency = view.findViewById(R.id.btnEmergency);
 
+
+        btnEmergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = "153";
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                startActivity(dialIntent);
+            }
+        });
         // Initialize the GestureDetector
         gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -70,12 +81,7 @@ public class HomeFragment extends Fragment {
         });
 
         // Set up item click listener for the ListView
-        newsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Handle item click here
-            }
-        });
+
     }
 
     public static HomeFragment newInstance(String param1, String param2) {

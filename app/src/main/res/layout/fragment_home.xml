@@ -8,15 +8,17 @@
     tools:context=".fragments.HomeFragment">
 
     <RelativeLayout
-        android:layout_width="380dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/heartImageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:src="@drawable/heart"></ImageView>
 
         <TextView
@@ -37,13 +39,25 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/newsListView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="12dp"
-        android:divider="@null"
-        android:dividerHeight="6dp"></ListView>
+        android:layout_marginBottom="60dp">
+
+        <Button
+            android:id="@+id/btnEmergency"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/emergency_button"
+            android:textAlignment="center"
+            android:text="EMERGENCY HOTLINE"
+            android:textSize="54sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
 
 </LinearLayout>
