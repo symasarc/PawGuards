@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.fragment.app.FragmentManager;
 
 import com.example.pawguards.AdoptionPost;
@@ -72,43 +73,86 @@ public class PostCreationFragment extends Fragment {
         rbFemale = getView().findViewById(R.id.rbFemale);
 
 
-
         btnCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int selectedGenderButtonId = rgGender.getCheckedRadioButtonId();
                 String gender = "";
-                if(selectedGenderButtonId == rbMale.getId()){
+                if (selectedGenderButtonId == rbMale.getId()) {
                     gender = "Male";
-                } else if(selectedGenderButtonId == rbFemale.getId()){
+                } else if (selectedGenderButtonId == rbFemale.getId()) {
                     gender = "Female";
                 }
 
                 int selectedRadioButtonId = rgSpecies.getCheckedRadioButtonId();
                 String species = "";
-                if(selectedRadioButtonId == rbDog.getId()){
+                if (selectedRadioButtonId == rbDog.getId()) {
                     species = "Dog";
-                } else if(selectedRadioButtonId == rbCat.getId()){
+                } else if (selectedRadioButtonId == rbCat.getId()) {
                     species = "Cat";
-                } else if(selectedRadioButtonId == rbBird.getId()){
+                } else if (selectedRadioButtonId == rbBird.getId()) {
                     species = "Bird";
-                } else if(selectedRadioButtonId == rbOther.getId()){
+                } else if (selectedRadioButtonId == rbOther.getId()) {
                     species = "Other";
                 }
 
+                String title = etTitle.getText().toString();
+                String description = etDescription.getText().toString();
+                String location = spCountry.getSelectedItem().toString();
+                String age = etAge.getText().toString();
+                String name = etName.getText().toString();
+                String availability = "available";
+                String image = "image";
+
+                if (title.isEmpty() || title.equals(" ")) {
+                    etTitle.setError("Please input valid title");
+                    return;
+                }
+
+                if (name.isEmpty() || name.equals(" ")) {
+                    etName.setError("Please input valid name");
+                    return;
+                }
+
+                if (age.isEmpty() || age.equals(" ")) {
+                    etAge.setError("Please input valid age");
+                    return;
+                }
+
+                if (species.isEmpty() || species.equals(" ")) {
+                    Toast.makeText(getContext(), "Please select species", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (description.isEmpty() || description.equals(" ")) {
+                    etDescription.setError("Please input valid description");
+                    return;
+                }
+
+                if (location.isEmpty() || location.equals(" ")) {
+                    Toast.makeText(getContext(), "Please select location", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (gender.isEmpty() || gender.equals(" ")) {
+                    Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 Bundle bundle = new Bundle();
-                bundle.putString("title", etTitle.getText().toString());
-                bundle.putString("description", etDescription.getText().toString());
-                bundle.putString("location", spCountry.getSelectedItem().toString());
-                bundle.putString("age", etAge.getText().toString());
-                bundle.putString("name", etName.getText().toString());
+                bundle.putString("title", title);
+                bundle.putString("description", description);
+                bundle.putString("location", location);
+                bundle.putString("age", age);
+                bundle.putString("name", name);
                 bundle.putString("species", species);
                 bundle.putString("gender", gender);
                 bundle.putString("availability", "available");
                 bundle.putString("image", "image");
 
-                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment(),bundle);
+                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment(), bundle);
             }
         });
 
@@ -157,7 +201,7 @@ public class PostCreationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =inflater.inflate(R.layout.fragment_post_creation, container, false);
+        view = inflater.inflate(R.layout.fragment_post_creation, container, false);
 
         return view;
     }
