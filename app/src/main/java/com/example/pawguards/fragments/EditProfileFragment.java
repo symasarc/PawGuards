@@ -103,6 +103,7 @@ public class EditProfileFragment extends Fragment {
                     if (document.exists()) {
                         Log.d("DocumentReference", "DocumentSnapshot data: " + document.getData());
                         user = document.toObject(User.class);
+                        Log.d("DocumentReference", "onComplete: "+user.toString());
                         new AsyncTask<Void, Void, Bitmap>() {
                             @Override
                             protected Bitmap doInBackground(Void... voids) {
@@ -135,7 +136,7 @@ public class EditProfileFragment extends Fragment {
                         etEmail.setText(user.getEmail());
                         etName.setText(user.getName());
                         etsurname.setText(user.getSurname());
-                        if(!user.getCountry().equals(" ")){
+                        if(!user.getCountry().equals("-1")){
                             spCountry.setSelection(adapter.getPosition(user.getCountry()));
                         }
                     } else {

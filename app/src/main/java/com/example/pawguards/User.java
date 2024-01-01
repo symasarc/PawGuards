@@ -119,6 +119,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", profilePicture='" + profilePicture + '\'' +
                 ", uid='" + uid + '\'' +
+                ", country'" + country + '\'' +
                 ", donationsMade=" + donationsMade +
                 ", animalsAdopted=" + animalsAdopted +
                 ", adoptionPosts=" + adoptionPosts +
