@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import com.example.pawguards.R;
 import com.example.pawguards.RecyclerViewInterface;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -34,6 +35,8 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
     private AdoptionPostAdapter adoptionPostAdapter;
     private Button btnAddAdoptionPost;
     private List<AdoptionPost> adoptionArrayList;
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
 
         // Find the RecyclerView in the layout
         recyclerView = view.findViewById(R.id.rvAdoptionCenter);
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // Set up the RecyclerView with a LinearLayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -58,48 +63,35 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
                 ((HomeActivity) getActivity()).changeFragment(new PostCreationFragment());
             }
         });
-
-
-        if (getArguments() != null) {
-            String title = getArguments().getString("title");
-            String description = getArguments().getString("description");
-            String location = getArguments().getString("location");
-            String animalName = getArguments().getString("name");
-            String animalAge = getArguments().getString("age");
-            String animalType = getArguments().getString("species");
-            String availability = getArguments().getString("availability");
-            String image = getArguments().getString("image");
-            String gender = getArguments().getString("gender");
-
-
-            Animal animal = new Animal(animalName, description, Integer.parseInt(animalAge), animalType, gender);
-            addAdoptionPost(title, description, location, animal, availability, image);
-        }
-
         return view;
     }
 
      private void retrieveAdoptionPosts() {
-         FirebaseFirestore.getInstance().collection("adoptions").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("posts").get()
+         db.collection("Animals").get()
                  .addOnCompleteListener(task -> {
                      if (task.isSuccessful() && adoptionArrayList != null) {
                          for (QueryDocumentSnapshot document : task.getResult()) {
-                             System.out.println(document.getId() + " => " + document.getData());
-                             String title = document.getString("title");
-                             String description = document.getString("description");
-                             String location = document.getString("location");
-                             String animalName = document.getString("animal_name");
-                             String animalDescription = document.getString("animal_description");
-                             int animalAge = document.getLong("animal_age").intValue();
-                             String animalType = document.getString("animal_type");
-                             String animalGender = document.getString("animal_gender");
+                             if (!((Boolean) document.get("isAdopted"))) {
+                                 System.out.println(document.getId() + " => " + document.getData());
+                                 String title = document.getString("title");
+                                 String description = document.getString("description");
+                                 String location = document.getString("location");
+                                 String animalName = document.getString("name");
+                                 int animalAge = document.getLong("age").intValue();
+                                 String animalType = document.getString("type");
+                                 String animalGender = document.getString("gender");
+                                 Boolean isAdopted = document.getBoolean("isAdopted");
+                                 DocumentReference whoAdopted = document.getDocumentReference("whoAdopted");
+                                 DocumentReference whoPosted = document.getDocumentReference("whoPosted");
+                                 String image = document.getString("profilePicture");
 
-                             Animal animal = new Animal(animalName, animalDescription, animalAge, animalType, animalGender);
+                                 Animal animal = new Animal(animalName,animalAge,animalType,description, animalGender, isAdopted, whoAdopted, whoPosted, image, title, location);
 
-                             String availability = document.getString("availability");
-                             //String image = document.getString("image");
-                             AdoptionPost adoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
-                             adoptionArrayList.add(adoptionPost);
+                                 String availability = document.getString("availability");
+
+                                 AdoptionPost adoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
+                                 adoptionArrayList.add(adoptionPost);
+                             }
                          }
                          updateUI(adoptionArrayList);
                      } else {
@@ -108,38 +100,9 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
                  });
      }
 
-
      private void updateUI(List<AdoptionPost> adoptionArrayList) {
          adoptionPostAdapter = new AdoptionPostAdapter(this, adoptionArrayList);
          recyclerView.setAdapter(adoptionPostAdapter);
-     }
-
-     public void addAdoptionPost(String title, String description, String location, Animal animal, String availability, String image) {
-         FirebaseAuth auth = FirebaseAuth.getInstance();
-
-         Map<String, Object> adoptionPost = new HashMap<>();
-         adoptionPost.put("title", title);
-         adoptionPost.put("description", description);
-         adoptionPost.put("location", location);
-         adoptionPost.put("animal_name", animal.getName());
-         adoptionPost.put("animal_description", animal.getDescription());
-         adoptionPost.put("animal_age", animal.getAge());
-         adoptionPost.put("animal_type", animal.getType());
-         adoptionPost.put("availability", availability);
-         adoptionPost.put("animal_gender", animal.getGender());
-         //adoptionPost.put("image", image);
-
-         FirebaseFirestore.getInstance().collection("adoptions").document(auth.getCurrentUser().getUid()).collection("posts").add(adoptionPost)
-                 .addOnCompleteListener(task -> {
-                     if (task.isSuccessful()) {
-                         Toast.makeText(getActivity(), "Adoption post added successfully!", Toast.LENGTH_SHORT).show();
-                         AdoptionPost newAdoptionPost = new AdoptionPost(" ", title, description, location, animal, availability);
-                         adoptionArrayList.add(newAdoptionPost);  // Add the new post to the list
-                         updateUI(adoptionArrayList);
-                     } else {
-                         Toast.makeText(getActivity(), "Error adding adoption post: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                     }
-                 });
      }
 
     @Override
