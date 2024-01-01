@@ -27,7 +27,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/svAdoptionCenter"
         android:padding="16dp"
-        android:layout_above="@id/btnCreatePost" />
+        android:layout_above="@id/btnCreatePost"
+        />
 
     <Button
         android:id="@+id/btnCreatePost"

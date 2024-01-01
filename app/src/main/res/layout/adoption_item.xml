@@ -5,7 +5,8 @@
     android:background="@drawable/news_box"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_marginBottom="12dp">
 
     <LinearLayout
         android:layout_width="80dp"
@@ -106,6 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
+                    android:layout_marginTop="8dp"
                     android:text="This is a description of the item. It provides additional information about the content displayed in the layout. You can customize this text based on your needs."
                     android:textColor="#D6D6D6"
                     android:textSize="13sp" />
