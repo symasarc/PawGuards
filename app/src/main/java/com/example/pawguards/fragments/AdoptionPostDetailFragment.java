@@ -33,7 +33,6 @@ public class AdoptionPostDetailFragment extends Fragment {
             String location = args.getString("location", "");
             String animalDetails = args.getString("animalDetails", "");
             String availability = args.getString("availability", "");
-            String image = args.getString("image", "");
 
             // Set data to TextViews
             textTitle.setText(title);
@@ -41,7 +40,7 @@ public class AdoptionPostDetailFragment extends Fragment {
             textLocation.setText(location);
             textAnimalDetails.setText(animalDetails);
             textAvailability.setText(availability);
-            imageAnimal.setImageResource(image);//HATALI BU DA
+
         }
 
         return view;

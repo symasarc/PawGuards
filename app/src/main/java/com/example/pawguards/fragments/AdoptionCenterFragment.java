@@ -153,7 +153,6 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         bundle.putString("location", adoptionPost.getLocation());
         bundle.putString("age", String.valueOf(adoptionPost.getAnimal().getAge()));
         bundle.putString("name", adoptionPost.getAnimal().getName());
-        bundle.putString("image", adoptionPost.getImage());//Hatalı burası image yorumda olduğundan dolayı
 
 
         adoptionPostDetailFragment.setArguments(bundle);
