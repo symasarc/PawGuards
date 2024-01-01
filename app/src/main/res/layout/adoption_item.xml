@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
-                    android:textColor="#3360FF"
+                    android:textColor="#FFFFFF"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -113,11 +113,11 @@
                     android:id="@+id/itemDescriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="12dp"
                     android:text="This is a description of the item. It provides additional information about the content displayed in the layout. You can customize this text based on your needs."
                     android:textColor="#D6D6D6"
-                    android:textSize="13sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>
