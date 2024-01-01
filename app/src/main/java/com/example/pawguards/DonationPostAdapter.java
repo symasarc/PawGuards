@@ -2,6 +2,7 @@ package com.example.pawguards;
 
 // CampaignAdapter.java
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pawguards.fragments.DonationPostFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapter.ViewHolder> {
-
     private List<DonationPost> donationsList;
 
     public DonationPostAdapter(List<DonationPost> donationsList) {
@@ -51,7 +61,7 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        DonationPost donationPost = donationsList.get(position);
+        DonationPost donationPost = donationsList.get(holder.getAdapterPosition());
 
 //        holder.imageCampaign.setImageResource(Integer.parseInt(donationPost.getImage()));
         holder.textCampaignTitle.setText(donationPost.getTitle());
@@ -63,13 +73,55 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
         holder.buttonDonateNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Donate Now clicked for " + donationPost.getTitle(), Toast.LENGTH_SHORT).show();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String userID = auth.getCurrentUser().getUid();
+
+                DonationPost donationPost = donationsList.get(holder.getAdapterPosition());
+                Donation donation = new Donation(donationPost.getTitle(), 1);
+
+                FirebaseFirestore.getInstance().collection("Users").document(userID).get().addOnSuccessListener(task -> {
+
+                    ArrayList<Donation> donationsMade = (ArrayList<Donation>) task.get("donationsMade");
+
+                    if (donationsMade == null) {
+                        donationsMade = new ArrayList<>();
+                    }
+
+                    donationsMade.add(donation);
+
+                    donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 1);
+
+                    // Update "donationsMade" field in the user document
+                    FirebaseFirestore.getInstance().collection("Users").document(userID).update("donationsMade", donationsMade);
+
+                    // Update "raisedAmount" field in the donations document
+                    donationPost.getRaisedAmount();
+
+                    FirebaseFirestore.getInstance().collection("donations").get().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            for (DocumentSnapshot document : task1.getResult()) {
+                                if (document.getString("title").equals(donationPost.getTitle())) {
+                                    document.getReference().update("raisedAmount", donationPost.getRaisedAmount());
+                                }
+                            }
+                        }
+                    });
+
+                });
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
         return donationsList.size();
     }
+
+//    public List<DonationPost> update(List<DonationPost> previousList){
+//        previousList = donationsList;
+//        return previousList;
+//    }
+
+
 }

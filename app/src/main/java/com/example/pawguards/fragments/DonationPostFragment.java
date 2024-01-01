@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pawguards.Donation;
 import com.example.pawguards.DonationPost;
 import com.example.pawguards.DonationPostAdapter;
 import com.example.pawguards.R;
+import com.example.pawguards.RecyclerViewInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,7 +33,7 @@ import java.util.Map;
 public class DonationPostFragment extends Fragment {
         private RecyclerView recyclerView;
         private DonationPostAdapter donationPostAdapter;
-
+        private List<DonationPost> donationsArrayList;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_donationpost, container, false);
@@ -42,13 +45,14 @@ public class DonationPostFragment extends Fragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
             // Retrieve donation posts from Firestore and update UI
+
             retrieveDonationPosts();
 
             return view;
         }
 
         private void retrieveDonationPosts() {
-            List<DonationPost> donationsArrayList = new ArrayList<>();
+            donationsArrayList = new ArrayList<>();
             FirebaseFirestore.getInstance().collection("donations").get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -61,9 +65,13 @@ public class DonationPostFragment extends Fragment {
                                     float raisedAmount = document.getLong("raisedAmount").floatValue();
                                     float goalAmount = document.getLong("goalAmount").floatValue();
                                     DonationPost donationPost = new DonationPost(title, description, "", raisedAmount, goalAmount);
-                                    donationsArrayList.add(donationPost);
+
+                                    if(raisedAmount < goalAmount) {
+                                        donationsArrayList.add(donationPost);
+                                    }
                                 }
                                 // Now, you can update your UI with the list of donation posts
+                                //donationsArrayList = donationPostAdapter.update(donationsArrayList);
                                 updateUI(donationsArrayList);
                             } else {
                                 Toast.makeText(getActivity(), "Error retrieving donations: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -72,7 +80,7 @@ public class DonationPostFragment extends Fragment {
                     });
         }
 
-        private void updateUI(List<DonationPost> donationPosts) {
+        public void updateUI(List<DonationPost> donationPosts) {
             // Create and set the adapter
             donationPostAdapter = new DonationPostAdapter(donationPosts);
             recyclerView.setAdapter(donationPostAdapter);
@@ -100,4 +108,7 @@ public class DonationPostFragment extends Fragment {
                         }
                     });
         }
-    }
+
+
+
+}
