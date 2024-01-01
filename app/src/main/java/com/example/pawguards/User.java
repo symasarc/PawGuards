@@ -8,7 +8,6 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    //private String profilePicture;
     private String uid;
     private List<Donation> donationsMade;
     private List<DocumentReference> animalsAdopted;

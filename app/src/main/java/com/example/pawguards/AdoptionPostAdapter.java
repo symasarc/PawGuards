@@ -1,5 +1,9 @@
 package com.example.pawguards;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
+
+import java.io.InputStream;
 import java.util.List;
 
 public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapter.ViewHolderAdopt> {
 
     private final RecyclerViewInterface recyclerViewInterface;
+    public FirebaseStorage firebaseStorage;
     private List<AdoptionPost> adoptionsList;
 
     public AdoptionPostAdapter(RecyclerViewInterface recyclerViewInterface, List<AdoptionPost> adoptionsList) {
         this.adoptionsList = adoptionsList;
         this.recyclerViewInterface = recyclerViewInterface;
     }
+
 
     public static class ViewHolderAdopt extends RecyclerView.ViewHolder {
 
@@ -31,6 +43,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
         public TextView textAge;
         public TextView textName;
 
+
         public ViewHolderAdopt(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             imageAdopt = itemView.findViewById(R.id.itemImageView);
@@ -40,6 +53,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
             textAge = itemView.findViewById(R.id.itemAgeTextView);
             textGender = itemView.findViewById(R.id.itemGenderTextView);
             textName = itemView.findViewById(R.id.itemNameTextView);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,8 +82,39 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     public void onBindViewHolder(@NonNull ViewHolderAdopt holder, int position) {
 
         AdoptionPost adoptionPost = adoptionsList.get(position);
+        firebaseStorage = FirebaseStorage.getInstance();
 
-//            holder.imageAdopt.setImageResource(Integer.parseInt(adoptionPost.getImage()));
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Void... voids) {
+                try {
+
+                    //get profile picture address from user object and download it
+                    StorageReference picRef = firebaseStorage.getReferenceFromUrl(adoptionPost.getImage());
+                    // Get the StreamDownloadTask
+                    StreamDownloadTask streamTask = picRef.getStream();
+
+                    // Await completion and retrieve the InputStream
+                    InputStream inputStream = Tasks.await(streamTask).getStream();
+                    return BitmapFactory.decodeStream(inputStream);
+                } catch (Exception e) {
+                    Log.e("PhotoDownload", "Error downloading image", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                if (bitmap != null) {
+                    holder.imageAdopt.setImageBitmap(bitmap);
+                } else {
+                    // Handle download failure
+                }
+            }
+        }.execute();
+
+
+
         holder.textAdoptTitle.setText(adoptionPost.getTitle());
         holder.textAdoptDescription.setText(adoptionPost.getDescription());
         holder.textAdoptLocation.setText(adoptionPost.getLocation());
@@ -81,6 +126,8 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
             holder.textGender.setTextColor(0xFFFF56EE);
         }
         holder.textName.setText(adoptionPost.getAnimal().getName());
+
+
 
     }
 

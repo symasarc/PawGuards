@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,7 +166,6 @@ public class PostCreationFragment extends Fragment {
                 }
                 DocumentReference whoPosted = db.collection("users").document(auth.getCurrentUser().getUid());
 
-
                 Map<String, Object> animal = new HashMap<>();
                 animal.put("age", Integer.parseInt(etAge.getText().toString()));
                 animal.put("animalPic", null);
@@ -177,68 +177,62 @@ public class PostCreationFragment extends Fragment {
                 animal.put("type", species);
                 animal.put("whoAdopted", null);
                 animal.put("whoPosted", whoPosted);
-
-                AtomicReference<String> animalID = new AtomicReference<>();
+                animal.put("location", spCountry.getSelectedItem().toString());
 
                 db.collection("Animals").add(animal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        animalID.set(documentReference.getId());
-                    }
-                });
+                        //photo upload and updating user's adoptionPosts
+                        if (animPicture.getDrawable() != null) {
+                            StorageReference storageRef = firebaseStorage.getReference().child("images/Animals/" + documentReference.getId());
 
-                //photo upload and updating user's adoptionPosts
-                if (animPicture.getDrawable() != null) {
-                    StorageReference storageRef = firebaseStorage.getReference().child("images/Animals/" + animalID.get());
+                            // Get the data from an ImageView as bytes
+                            animPicture.setDrawingCacheEnabled(true);
+                            animPicture.buildDrawingCache();
+                            Bitmap bitmap = ((BitmapDrawable) animPicture.getDrawable()).getBitmap();
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            byte[] data = baos.toByteArray();
 
-                    // Get the data from an ImageView as bytes
-                    animPicture.setDrawingCacheEnabled(true);
-                    animPicture.buildDrawingCache();
-                    Bitmap bitmap = ((BitmapDrawable) animPicture.getDrawable()).getBitmap();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-
-                    UploadTask uploadTask = storageRef.putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            Toast.makeText(getActivity().getApplicationContext(), "Upload failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                            // ...
-                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            UploadTask uploadTask = storageRef.putBytes(data);
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    //updating animal's profilePicture
-                                    db.collection("Animals").document(animalID.get()).update("profilePicture", uri.toString());
-
-                                    //updating user's adoptionPosts
-                                    db.collection("Users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                    Toast.makeText(getActivity().getApplicationContext(), "Upload failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                                    // ...
+                                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if(task.isSuccessful() && task.getResult() != null){
-                                                DocumentSnapshot documentSnapshot = task.getResult();
-                                                Map<String, Object> user = documentSnapshot.getData();
-                                                List<DocumentReference> list = (List<DocumentReference>) user.get("adoptionPosts");
-                                                list.add(db.collection("Animals").document(animalID.get()));
-                                                db.collection("Users").document(auth.getCurrentUser().getUid()).update("adoptionPosts", list);
-                                            }
+                                        public void onSuccess(Uri uri) {
+                                            //updating animal's profilePicture
+                                            db.collection("Animals").document(documentReference.getId()).update("animalPic", uri.toString());
+
+                                            //updating user's adoptionPosts
+                                            db.collection("Users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful() && task.getResult() != null){
+                                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                                        Map<String, Object> user = documentSnapshot.getData();
+                                                        List<DocumentReference> list = (List<DocumentReference>) user.get("adoptionPosts");
+                                                        list.add(db.collection("Animals").document(documentReference.getId()));
+                                                        db.collection("Users").document(auth.getCurrentUser().getUid()).update("adoptionPosts", list);
+                                                    }
+                                                }
+                                            });
+                                            Toast.makeText(getActivity().getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-
-
-                                    Toast.makeText(getActivity().getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-                    });
-                }
-
+                    }
+                });
                 ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
             }
         });
@@ -302,6 +296,4 @@ public class PostCreationFragment extends Fragment {
             imageRecievedFlag = true;
         }
     }
-
-
 }
