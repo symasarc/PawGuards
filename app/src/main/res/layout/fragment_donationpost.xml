@@ -12,16 +12,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
         android:text="Donation and Fundraising"
         android:textColor="#FFFFFF"
-        android:textSize="24sp" />
+        android:textSize="26sp"
+        android:textStyle="bold"/>
 
+    <!--    wallet      -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignTop="@+id/recyclerViewCampaigns">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/wallet_bifold_outline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:text="Wallet:"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="15 TL"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
     <!-- RecyclerView for Donation Campaigns -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCampaigns"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop=""
         android:layout_below="@id/textViewHeader"
         android:padding="16dp" />
 
