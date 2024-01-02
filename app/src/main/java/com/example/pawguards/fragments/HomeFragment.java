@@ -3,39 +3,39 @@ package com.example.pawguards.fragments;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.pawguards.AdoptionPostAdapter;
 import com.example.pawguards.R;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HomeFragment extends Fragment {
 
     private View view;
+
+    private TextView savedCountTextView;
     private ImageView heartImage;
     private GestureDetector gestureDetector;
     private Button btnEmergency;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,6 +44,9 @@ public class HomeFragment extends Fragment {
     public void init() {
         heartImage = view.findViewById(R.id.heartImageView);
         btnEmergency = view.findViewById(R.id.btnEmergency);
+        savedCountTextView = view.findViewById(R.id.savedCountText);
+
+        savedCountTextView.setText(String.valueOf(calculateSavedCount()));
 
 
         btnEmergency.setOnClickListener(new View.OnClickListener() {
@@ -98,8 +101,6 @@ public class HomeFragment extends Fragment {
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -108,10 +109,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -124,6 +121,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
     public void startHeartAnimation() {
         ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(heartImage, "rotation", 0f, 10f, -10f, 5f, -5f, 0f);
         rotationAnim.setDuration(1000); // Set the duration of the animation in milliseconds
@@ -135,6 +133,39 @@ public class HomeFragment extends Fragment {
         animatorSet.start();
     }
 
+    public int calculateSavedCount() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String userID = auth.getCurrentUser().getUid();
+        AtomicInteger notSavedCount = new AtomicInteger();
+        AtomicInteger savedCount = new AtomicInteger();
+
+        Task<QuerySnapshot> collectionReference = db.collection("adoptions").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    notSavedCount.getAndIncrement();
+                }
+            } else {
+                Log.d("TAG", "Error getting documents: ", task.getException());
+            }
+        });
+
+        Task<QuerySnapshot> collectionReference2 = db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    ArrayList<String> animalsAdopted = (ArrayList<String>) document.getData().get("animalsAdopted");
+                    if (animalsAdopted != null) {
+                        for (String animal : animalsAdopted) {
+                            savedCount.getAndIncrement();
+                        }
+                    }
+                }
+            } else {
+                Log.d("TAG", "Error getting documents: ", task.getException());
+            }
+        });
 
 
+        return savedCount.get();
+    }
 }

@@ -27,6 +27,8 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     public FirebaseStorage firebaseStorage;
     private List<AdoptionPost> adoptionsList;
 
+    public int savedCount = 0;
+
     public AdoptionPostAdapter(RecyclerViewInterface recyclerViewInterface, List<AdoptionPost> adoptionsList) {
         this.adoptionsList = adoptionsList;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -135,6 +137,7 @@ public class AdoptionPostAdapter extends RecyclerView.Adapter<AdoptionPostAdapte
     public int getItemCount() {
         return adoptionsList.size();
     }
+
 
 }
 

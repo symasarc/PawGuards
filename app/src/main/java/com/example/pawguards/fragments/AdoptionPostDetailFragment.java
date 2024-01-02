@@ -1,5 +1,6 @@
 package com.example.pawguards.fragments;
 
+import android.app.admin.SecurityLog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -14,14 +15,19 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.pawguards.Animal;
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.R;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StreamDownloadTask;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class AdoptionPostDetailFragment extends Fragment {
 
@@ -39,6 +45,7 @@ public class AdoptionPostDetailFragment extends Fragment {
         TextView textDescription = view.findViewById(R.id.textDescription);
         TextView textLocation = view.findViewById(R.id.textLocation);
         Button btnBack = view.findViewById(R.id.buttonBack);
+        Button adoptButton = view.findViewById(R.id.buttonAdopt);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +55,28 @@ public class AdoptionPostDetailFragment extends Fragment {
             }
         });
 
+        adoptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+                Animal animal; //GET ANIMAL INFO
+                FirebaseFirestore.getInstance().collection("Users").document(mAuth.getUid()).get().addOnSuccessListener(task -> {
+                    ArrayList<Animal> adoptionsMade = (ArrayList<Animal>) task.get("adoptionsMade");
+                    if (adoptionsMade == null) {
+                        adoptionsMade = new ArrayList<>();
+                    }
+
+                    //Postu kaldırmak lazım vallahi çok yoruldum
+
+                    //adoptionsMade.add(animal);
+
+                    FirebaseFirestore.getInstance().collection("Users").document(mAuth.getUid()).update("adoptionsMade", adoptionsMade);
+
+
+            });
+            }
+        });
         // Get data from arguments
         Bundle args = getArguments();
         if (args != null) {

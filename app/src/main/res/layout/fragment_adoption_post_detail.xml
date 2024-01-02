@@ -222,6 +222,7 @@
             </LinearLayout>
             <!--       Adopt Button     -->
             <Button
+                android:id="@+id/buttonAdopt"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
