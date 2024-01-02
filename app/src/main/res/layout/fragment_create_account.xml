@@ -84,7 +84,8 @@
         android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/passConfSignUp"
@@ -96,7 +97,8 @@
         android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:inputType="textPassword" />
 
     <TextView
         android:layout_width="wrap_content"
