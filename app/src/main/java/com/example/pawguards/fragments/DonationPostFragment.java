@@ -17,11 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pawguards.AdoptionPost;
 import com.example.pawguards.Donation;
 import com.example.pawguards.DonationPost;
 import com.example.pawguards.DonationPostAdapter;
 import com.example.pawguards.R;
 import com.example.pawguards.RecyclerViewInterface;
+import com.example.pawguards.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -62,9 +64,18 @@ public class DonationPostFragment extends Fragment {
             // Retrieve donation posts from Firestore and update UI
             firebaseStorage= FirebaseStorage.getInstance();
 
+            //---------------------------------------------------------------
+            //post eklemek için açık bırakın altı!!!
+            //for photos to upload in firebase storage
+            //Intent iGallery = new Intent(Intent.ACTION_PICK);
+            //iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //startActivityForResult(iGallery, GALLERY_REQUEST_CODE);
             //addDonationPost("Fakir Semihe Donatetion topluyoz!!!", "We need your help to save SEMIH!", -1, 10);
+            //---------------------------------------------------------------
 
+            //post eklemek istiyorsanız alttakini açın üstü commentlayın!!!!
             retrieveDonationPosts();
+
 
             return view;
         }
@@ -77,15 +88,10 @@ public class DonationPostFragment extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String title = document.getString("title");
-                                    String description = document.getString("description");
-                                    // String image = document.getString("image");
-                                    float raisedAmount = document.getLong("raisedAmount").floatValue();
-                                    float goalAmount = document.getLong("goalAmount").floatValue();
-                                    DonationPost donationPost = new DonationPost(title, description, "", raisedAmount, goalAmount);
-
-                                    if(raisedAmount < goalAmount) {
-                                        donationsArrayList.add(donationPost);
+                                    //document to donation post
+                                    DonationPost adPost = document.toObject(DonationPost.class);
+                                    if(adPost.getRaisedAmount() < adPost.getGoalAmount()) {
+                                        donationsArrayList.add(adPost);
                                     }
                                 }
                                 // Now, you can update your UI with the list of donation posts
@@ -108,14 +114,6 @@ public class DonationPostFragment extends Fragment {
             Map<String, Object> donationsMap = new HashMap<>();
             donationsMap.put("title", title);
             donationsMap.put("description", description);
-
-            //for photos to upload in firebase storage
-            Intent iGallery = new Intent(Intent.ACTION_PICK);
-            iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(iGallery, GALLERY_REQUEST_CODE);
-
-            //donationsMap.put("image", imageURI.toString());
-
             donationsMap.put("raisedAmount", raisedAmount);
             donationsMap.put("goalAmount", goalAmount);
 
@@ -142,7 +140,8 @@ public class DonationPostFragment extends Fragment {
                                             storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                 @Override
                                                 public void onSuccess(Uri uri) {
-                                                    documentReference.update("image", uri.toString());
+                                                    documentReference.update("imageLink", uri.toString());
+                                                    retrieveDonationPosts();
                                                 }
                                             });
                                         }

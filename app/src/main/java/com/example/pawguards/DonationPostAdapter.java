@@ -3,6 +3,10 @@ package com.example.pawguards;
 // CampaignAdapter.java
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +20,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pawguards.fragments.DonationPostFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapter.ViewHolder> {
     private List<DonationPost> donationsList;
+    private FirebaseStorage firebaseStorage;
 
     public DonationPostAdapter(List<DonationPost> donationsList) {
         this.donationsList = donationsList;
@@ -63,7 +73,38 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
 
         DonationPost donationPost = donationsList.get(holder.getAdapterPosition());
 
-//        holder.imageCampaign.setImageResource(Integer.parseInt(donationPost.getImage()));
+        firebaseStorage = FirebaseStorage.getInstance();
+
+
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Void... voids) {
+                try {
+
+                    //get profile picture address from user object and download it
+                    StorageReference picRef = firebaseStorage.getReferenceFromUrl(donationPost.getImageLink());
+                    // Get the StreamDownloadTask
+                    StreamDownloadTask streamTask = picRef.getStream();
+
+                    // Await completion and retrieve the InputStream
+                    InputStream inputStream = Tasks.await(streamTask).getStream();
+                    return BitmapFactory.decodeStream(inputStream);
+                } catch (Exception e) {
+                    Log.e("PhotoDownload", "Error downloading image", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                if (bitmap != null) {
+                    holder.imageCampaign.setImageBitmap(bitmap);
+                } else {
+                    // Handle download failure
+                }
+            }
+        }.execute();
+
         holder.textCampaignTitle.setText(donationPost.getTitle());
         holder.textCampaignDescription.setText(donationPost.getDescription());
         holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
