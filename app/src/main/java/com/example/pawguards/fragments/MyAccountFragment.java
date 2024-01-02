@@ -61,9 +61,7 @@ public class MyAccountFragment extends Fragment {
         editProfileButton = getView().findViewById(R.id.btnEditProfile);
         usernameTextView = getView().findViewById(R.id.tvNameSurname);
         emailTextView = getView().findViewById(R.id.tvEmail);
-        phoneNumberTextView = getView().findViewById(R.id.tvContact);
         locationTextView = getView().findViewById(R.id.tvLocation);
-        bioTextView = getView().findViewById(R.id.tvBio);
         logoutButton = getView().findViewById(R.id.btnLogout);
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

@@ -32,14 +32,26 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ivProfilePicture"
+
+        <RelativeLayout
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/ivProfilePicture"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
+            <ImageView
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/pencil"/>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
