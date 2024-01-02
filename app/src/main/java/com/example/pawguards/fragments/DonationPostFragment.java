@@ -49,13 +49,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DonationPostFragment extends Fragment {
-        private final int GALLERY_REQUEST_CODE = 1000;
+
         private RecyclerView recyclerView;
         private TextView wallet;
         private DonationPostAdapter donationPostAdapter;
         private List<DonationPost> donationsArrayList;
         private FirebaseStorage firebaseStorage;
-        private Uri imageURI;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_donationpost, container, false);
@@ -70,18 +70,12 @@ public class DonationPostFragment extends Fragment {
             // Retrieve donation posts from Firestore and update UI
             firebaseStorage= FirebaseStorage.getInstance();
 
-            //---------------------------------------------------------------
-            //post eklemek için açık bırakın altı!!!
-            //for photos to upload in firebase storage
-            //Intent iGallery = new Intent(Intent.ACTION_PICK);
-            //iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            //startActivityForResult(iGallery, GALLERY_REQUEST_CODE);
-            //addDonationPost("Fakir Semihe Donatetion topluyoz!!!", "We need your help to save SEMIH!", -1, 10);
-            //---------------------------------------------------------------
+
 
             //post eklemek istiyorsanız alttakini açın üstü commentlayın!!!!
             retrieveDonationPosts();
             updateWallet();
+
 
             return view;
         }
@@ -126,63 +120,4 @@ public class DonationPostFragment extends Fragment {
             donationPostAdapter = new DonationPostAdapter(donationPosts);
             recyclerView.setAdapter(donationPostAdapter);
         }
-
-        private void addDonationPost(String title, String description, float raisedAmount, float goalAmount) {
-            Map<String, Object> donationsMap = new HashMap<>();
-            donationsMap.put("title", title);
-            donationsMap.put("description", description);
-            donationsMap.put("raisedAmount", raisedAmount);
-            donationsMap.put("goalAmount", goalAmount);
-
-            FirebaseFirestore.getInstance().collection("donations").add(donationsMap)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Donation added", Toast.LENGTH_SHORT).show();
-                                // Now, you can retrieve all donations or update your UI accordingly
-                                DocumentReference documentReference = task.getResult();
-                                StorageReference storageRef = firebaseStorage.getReference().child("images/Donations/" + documentReference.getId());
-                                try {
-                                    Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageURI), null, null);
-                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                    byte[] data = baos.toByteArray();
-                                    UploadTask uploadTask = storageRef.putBytes(data);
-                                    //starting to upload photo...
-                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            //getting the url of the photo and adding it to the document
-                                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                @Override
-                                                public void onSuccess(Uri uri) {
-                                                    documentReference.update("imageLink", uri.toString());
-                                                    retrieveDonationPosts();
-                                                }
-                                            });
-                                        }
-                                    });
-                                } catch (FileNotFoundException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                retrieveDonationPosts();
-                            } else {
-                                Toast.makeText(getActivity(), "Error adding donation: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            //handle result of picked image
-            if (resultCode == getActivity().RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
-                //set image to image view
-                imageURI = data.getData();
-            }
-        }
-
-
 }
