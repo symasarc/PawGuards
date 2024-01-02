@@ -192,7 +192,7 @@ public class CreateAccountFragment extends Fragment {
 
     private void uploadUser(FirebaseUser user, String name, String surname, String email) {
 
-        User newUser = new User("-1", name, surname, email, user.getUid(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "-1", "-1", 10);
+        User newUser = new User("-1", name, surname, email, user.getUid(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "-1", "-1", 100);
 
         Map<String, Object> map = new HashMap<>();
 
