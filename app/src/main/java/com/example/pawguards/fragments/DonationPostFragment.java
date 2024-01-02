@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,12 +30,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -47,6 +51,7 @@ import java.util.Map;
 public class DonationPostFragment extends Fragment {
         private final int GALLERY_REQUEST_CODE = 1000;
         private RecyclerView recyclerView;
+        private TextView wallet;
         private DonationPostAdapter donationPostAdapter;
         private List<DonationPost> donationsArrayList;
         private FirebaseStorage firebaseStorage;
@@ -57,6 +62,7 @@ public class DonationPostFragment extends Fragment {
 
             // Find the RecyclerView in the layout
             recyclerView = view.findViewById(R.id.recyclerViewCampaigns);
+            wallet = view.findViewById(R.id.tvWallet);
 
             // Set up the RecyclerView with a LinearLayoutManager
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -75,9 +81,20 @@ public class DonationPostFragment extends Fragment {
 
             //post eklemek istiyorsanız alttakini açın üstü commentlayın!!!!
             retrieveDonationPosts();
-
+            updateWallet();
 
             return view;
+        }
+
+        private void updateWallet() {
+            FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            User user = task.getResult().toObject(User.class);
+                            wallet.setText(user.getMoneyRemaining() + " TL");
+                        }
+                    });
         }
 
         private void retrieveDonationPosts() {
