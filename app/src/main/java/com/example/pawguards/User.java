@@ -15,12 +15,13 @@ public class User {
     private String country;
     private String gender;
     private String profilePicture;
+    private int moneyRemaining;
 
     public User() {
     }
 
 
-    public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<DocumentReference> animalsAdopted, List<DocumentReference> adoptionPosts, String country, String gender) {
+    public User(String profilePicture, String name, String surname, String email, String uid, List<Donation> donationsMade, List<DocumentReference> animalsAdopted, List<DocumentReference> adoptionPosts, String country, String gender, int moneyRemaining) {
         this.profilePicture = profilePicture;
         this.name = name;
         this.surname = surname;
@@ -31,6 +32,7 @@ public class User {
         this.adoptionPosts = adoptionPosts;
         this.country = country;
         this.gender = gender;
+        this.moneyRemaining = moneyRemaining;
     }
 
     public String getName() {
@@ -87,6 +89,14 @@ public class User {
 
     public void setDonationsMade(List<Donation> donationsMade) {
         this.donationsMade = donationsMade;
+    }
+
+    public int getMoneyRemaining() {
+        return moneyRemaining;
+    }
+
+    public void setMoneyRemaining(int moneyRemaining) {
+        this.moneyRemaining = moneyRemaining;
     }
 
     public void setAnimalsAdopted(List<DocumentReference> animalsAdopted) {

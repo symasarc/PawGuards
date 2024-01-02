@@ -10,6 +10,9 @@ public class Donation {
         this.donationAmount = donationAmount;
     }
 
+    public Donation() {
+    }
+
     public String getTitle() {
         return title;
     }
