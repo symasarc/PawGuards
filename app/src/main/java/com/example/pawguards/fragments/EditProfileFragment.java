@@ -310,6 +310,7 @@ public class EditProfileFragment extends Fragment {
                         public void onSuccess(Uri uri) {
                             db.collection("Users").document(auth.getCurrentUser().getUid()).update("profilePicture", uri.toString());
                             Toast.makeText(getActivity().getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                            ((HomeActivity) getActivity()).changeFragment(new MyAccountFragment());
                         }
                     });
                 }

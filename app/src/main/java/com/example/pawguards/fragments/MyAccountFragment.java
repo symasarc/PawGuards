@@ -202,7 +202,7 @@ public class MyAccountFragment extends Fragment {
 
 
                         usernameTextView.setText(user.getName() + " " + user.getSurname());
-                        locationTextView.setText("Turkey " + user.getCountry());
+                        locationTextView.setText("Turkey " + (user.getCountry() == "-1" ? "" : user.getCountry()));
                         emailTextView.setText(user.getEmail());
                         currentBalanceTextView.setText(user.getMoneyRemaining() + " TL");
                         donationsMadeTextView.setText((user.getDonationsMade() == null ? "0" : user.getDonationsMade().size()* 50) + " TL");
