@@ -48,8 +48,7 @@ public class HomeFragment extends Fragment {
         savedCountTextView = view.findViewById(R.id.savedCountText);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-
-        savedCountTextView.setText(String.valueOf(calculateSavedCount()));
+        calculateSavedCount();
 
 
         btnEmergency.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +132,7 @@ public class HomeFragment extends Fragment {
         animatorSet.start();
     }
 
-    public int calculateSavedCount() {
+    public void calculateSavedCount() {
         AtomicInteger count = new AtomicInteger();
         db.collection("Animals").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -142,8 +141,8 @@ public class HomeFragment extends Fragment {
                         count.getAndIncrement();
                     }
                 }
+                savedCountTextView.setText(String.valueOf(count.get()));
             }
         });
-        return count.get();
     }
 }

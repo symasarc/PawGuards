@@ -68,7 +68,7 @@ public class AdoptionPostDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 db.collection("Users").document(mAuth.getCurrentUser().getUid()).
-                        update("adoptionPosts", FieldValue.
+                        update("animalsAdopted", FieldValue.
                                 arrayUnion(db.collection("Animals").document(animalID)));
 
                 db.collection("Animals").document(animal.getAnimalRef().getId()).update("isAdopted", true);
