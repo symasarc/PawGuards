@@ -129,32 +129,35 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
                     }
 
                     donationsMade.add(donation);
+                    if(task.getDouble("moneyRemaining") > 50){
+                        donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 50);
 
-                    donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 50);
+                        holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
 
-                    holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
+                        // Update "moneyRemaining" field in the user document
+                        FirebaseFirestore.getInstance().collection("Users").document(userID).update("moneyRemaining", task.getDouble("moneyRemaining") - 50);
+                        Toast.makeText(view.getContext(), "50 TL donated from your balance", Toast.LENGTH_SHORT).show();
+                        DonationPostFragment.updateWallet();
 
-                    // Update "moneyRemaining" field in the user document
-                    FirebaseFirestore.getInstance().collection("Users").document(userID).update("moneyRemaining", task.getDouble("moneyRemaining") - 50);
-                    Toast.makeText(view.getContext(), "50 TL donated from your balance", Toast.LENGTH_SHORT).show();
-                    DonationPostFragment.updateWallet();
+                        // Update "donationsMade" field in the user document
+                        FirebaseFirestore.getInstance().collection("Users").document(userID).update("donationsMade", donationsMade);
 
-                    // Update "donationsMade" field in the user document
-                    FirebaseFirestore.getInstance().collection("Users").document(userID).update("donationsMade", donationsMade);
+                        // Update "raisedAmount" field in the donations document
+                        donationPost.getRaisedAmount();
 
-                    // Update "raisedAmount" field in the donations document
-                    donationPost.getRaisedAmount();
-
-                    FirebaseFirestore.getInstance().collection("donations").get().addOnCompleteListener(task1 -> {
-                        if (task1.isSuccessful()) {
-                            for (DocumentSnapshot document : task1.getResult()) {
-                                if (document.getString("title").equals(donationPost.getTitle())) {
-                                    document.getReference().update("raisedAmount", donationPost.getRaisedAmount());
+                        FirebaseFirestore.getInstance().collection("donations").get().addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                for (DocumentSnapshot document : task1.getResult()) {
+                                    if (document.getString("title").equals(donationPost.getTitle())) {
+                                        document.getReference().update("raisedAmount", donationPost.getRaisedAmount());
+                                    }
                                 }
                             }
-                        }
-                    });
-
+                        });
+                        return;
+                    }else{
+                        Toast.makeText(view.getContext(), "You don't have enough money to donate", Toast.LENGTH_SHORT).show();
+                    }
                 });
             }
         });
