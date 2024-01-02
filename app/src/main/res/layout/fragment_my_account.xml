@@ -187,11 +187,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
                     android:text="Current balance:"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvCurrentBalance"
@@ -201,7 +202,7 @@
                     android:text="15$"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,11 +214,12 @@
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/hand_coin" />
+                    android:src="@drawable/hand_heart" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
                     android:text="Donations Made:"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
@@ -225,6 +227,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvDonationsMade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -233,6 +236,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,26 +246,62 @@
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/hand_coin" />
+                    android:src="@drawable/paw2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Donations Made:"
+                    android:layout_marginLeft="4dp"
+                    android:text="Paws Saved:"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvPawsSaved"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="15$"
+                    android:text="15"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/home_heart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:text="Fur-Ever Home Posts:"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFurEverHomePosts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="15"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!--            member since -->
 
             <TextView
                 android:id="@+id/tvMemberSince"
@@ -274,53 +314,28 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnAddBalance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="26dp"
-            android:layout_marginRight="36dp"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="36dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SAVED PAWS"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SAVED PAWS"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
-
-
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/edit_button"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:text="Add Balance"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/edit_button"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
@@ -329,7 +344,6 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
-
 
     </LinearLayout>
 </ScrollView>

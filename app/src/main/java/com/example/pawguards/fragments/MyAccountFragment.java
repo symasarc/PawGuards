@@ -40,9 +40,12 @@ public class MyAccountFragment extends Fragment {
     Button editProfileButton;
     TextView usernameTextView;
     TextView emailTextView;
-    TextView phoneNumberTextView;
     TextView locationTextView;
-    TextView bioTextView;
+    TextView currentBalanceTextView;
+    TextView donationsMadeTextView;
+    TextView pawsSavedTextView;
+    TextView furEverHomePostsTextView;
+    Button addBalanceButton;
     Button logoutButton;
     FirebaseAuth auth;
     User user;
@@ -57,12 +60,19 @@ public class MyAccountFragment extends Fragment {
 
     public void init() {
         activity = getActivity();
+
         profileImage = getView().findViewById(R.id.ivProfilePicture);
         editProfileButton = getView().findViewById(R.id.btnEditProfile);
         usernameTextView = getView().findViewById(R.id.tvNameSurname);
         emailTextView = getView().findViewById(R.id.tvEmail);
         locationTextView = getView().findViewById(R.id.tvLocation);
         logoutButton = getView().findViewById(R.id.btnLogout);
+        donationsMadeTextView = getView().findViewById(R.id.tvDonationsMade);
+        pawsSavedTextView = getView().findViewById(R.id.tvPawsSaved);
+        furEverHomePostsTextView = getView().findViewById(R.id.tvFurEverHomePosts);
+        currentBalanceTextView = getView().findViewById(R.id.tvCurrentBalance);
+        addBalanceButton = getView().findViewById(R.id.btnAddBalance);
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -87,6 +97,14 @@ public class MyAccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        addBalanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -125,7 +143,7 @@ public class MyAccountFragment extends Fragment {
                     if (document.exists()) {
                         Log.d("DocumentReference", "DocumentSnapshot data: " + document.getData());
                         user = document.toObject(User.class);
-                        Log.d("DocumentReference", "onComplete: "+user.toString());
+                        Log.d("DocumentReference", "onComplete: " + user.toString());
                         new AsyncTask<Void, Void, Bitmap>() {
                             @Override
                             protected Bitmap doInBackground(Void... voids) {
@@ -155,9 +173,12 @@ public class MyAccountFragment extends Fragment {
                             }
                         }.execute();
 
-                        usernameTextView.setText(user.getName()+" "+user.getSurname());
-                        locationTextView.setText("Turkey "+user.getCountry());
+
+                        usernameTextView.setText(user.getName() + " " + user.getSurname());
+                        locationTextView.setText("Turkey " + user.getCountry());
                         emailTextView.setText(user.getEmail());
+                        //currentBalanceTextView.setText(user.getM() + " TL");
+
                         Log.d("DocumentReference", "No such document");
                     }
                 } else {
@@ -165,15 +186,6 @@ public class MyAccountFragment extends Fragment {
                 }
             }
         });
-
-
-
-
-
-
-
-
-
 
 
         //YEAH
