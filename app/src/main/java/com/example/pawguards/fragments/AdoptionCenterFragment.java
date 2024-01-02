@@ -133,7 +133,7 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         AdoptionPost adoptionPost = adoptionArrayList.get(position);
 
         Bundle bundle = new Bundle();
-        bundle.putString("animalRef",adoptionPost.getAnimal().getAnimalRef().toString());
+        bundle.putString("animalRef",adoptionPost.getAnimal().getAnimalRef().getId());
 
         adoptionPostDetailFragment.setArguments(bundle);
 

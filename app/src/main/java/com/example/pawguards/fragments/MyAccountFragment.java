@@ -205,7 +205,7 @@ public class MyAccountFragment extends Fragment {
                         locationTextView.setText("Turkey " + user.getCountry());
                         emailTextView.setText(user.getEmail());
                         currentBalanceTextView.setText(user.getMoneyRemaining() + " TL");
-                        donationsMadeTextView.setText(user.getDonationsMade().size() + "TL");
+                        donationsMadeTextView.setText(user.getDonationsMade().size() * 50 + "TL");
                         pawsSavedTextView.setText(user.getAnimalsAdopted().size() + " Paws Rescued");
                         furEverHomePostsTextView.setText(user.getAdoptionPosts().size() + " Paws posted on FurEverHome");
 

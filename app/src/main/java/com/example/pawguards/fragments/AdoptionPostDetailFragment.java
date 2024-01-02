@@ -63,7 +63,6 @@ public class AdoptionPostDetailFragment extends Fragment {
             }
         });
 
-        DocumentReference animalRef = db.collection("Animals").document(animal.getAnimalRef().getId());
 
         adoptButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,21 +74,29 @@ public class AdoptionPostDetailFragment extends Fragment {
                 db.collection("Animals").document(animal.getAnimalRef().getId()).update("isAdopted", true);
                 ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
             }
+
         });
 
         // Get data from arguments
         Bundle args = getArguments();
         if (args != null) {
+
             db.collection("Animals").document(args.getString("animalRef")).get().addOnSuccessListener(task -> {
                 Animal an = task.toObject(Animal.class);
                 animalID= task.getId();
                 this.animal = an;
                 textTitle.setText(an.getTitle());
                 textName.setText(an.getName());
-                textAge.setText(an.getAge());
+                textAge.setText(""+an.getAge());
                 textGender.setText(an.getGender());
                 textDescription.setText(an.getDescription());
                 textLocation.setText(an.getLocation());
+
+                if(an.getGender().toLowerCase().equals("male")){
+                    textGender.setTextColor(0xFF3360FF);
+                }else if(an.getGender().toLowerCase().equals("female")){
+                    textGender.setTextColor(0xFFFF56EE);
+                }
 
                 // Set image
                 new AsyncTask<Void, Void, Bitmap>() {
