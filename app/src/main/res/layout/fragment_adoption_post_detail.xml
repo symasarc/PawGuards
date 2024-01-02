@@ -53,10 +53,10 @@
             <ImageView
                 android:id="@+id/imageAnimal"
                 android:layout_width="220dp"
-                android:layout_height="wrap_content"
+                android:layout_height="220dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher_background" />
 
             <!-- Title -->

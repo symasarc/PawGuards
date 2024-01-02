@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/itemImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@drawable/cat_dog_ic" />
