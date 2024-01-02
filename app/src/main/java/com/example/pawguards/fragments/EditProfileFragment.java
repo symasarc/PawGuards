@@ -50,6 +50,7 @@ public class EditProfileFragment extends Fragment {
     private final int GALLERY_REQUEST_CODE = 1000;
     private EditText etName;
     private EditText etEmail;
+    private boolean imageRecievedFlag = false;
     private EditText etsurname;
     private Spinner spCountry;
     private ImageView ivProfilePicture;
@@ -232,11 +233,11 @@ public class EditProfileFragment extends Fragment {
         if (resultCode == getActivity().RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
             //set image to image view
             ivProfilePicture.setImageURI(data.getData());
+            imageRecievedFlag = true;
         }
     }
 
     private void saveChanges() {
-
 
         if (etName.getText().toString().isEmpty()) {
             etName.setError("Please enter your name");
@@ -251,6 +252,10 @@ public class EditProfileFragment extends Fragment {
         if (etEmail.getText().toString().isEmpty()) {
             etEmail.setError("Please enter your email");
             Toast.makeText(getActivity().getApplicationContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!imageRecievedFlag){
+            Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
             return;
         }
 

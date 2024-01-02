@@ -129,7 +129,7 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
                     }
 
                     donationsMade.add(donation);
-                    if(task.getDouble("moneyRemaining") > 50){
+                    if(task.getDouble("moneyRemaining") >= 50){
                         donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 50);
 
                         holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
