@@ -25,7 +25,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HomeFragment extends Fragment {
@@ -36,6 +35,8 @@ public class HomeFragment extends Fragment {
     private ImageView heartImage;
     private GestureDetector gestureDetector;
     private Button btnEmergency;
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,6 +46,8 @@ public class HomeFragment extends Fragment {
         heartImage = view.findViewById(R.id.heartImageView);
         btnEmergency = view.findViewById(R.id.btnEmergency);
         savedCountTextView = view.findViewById(R.id.savedCountText);
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         savedCountTextView.setText(String.valueOf(calculateSavedCount()));
 
@@ -93,9 +96,6 @@ public class HomeFragment extends Fragment {
                 return gestureDetector.onTouchEvent(event);
             }
         });
-
-        // Set up item click listener for the ListView
-
     }
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -134,38 +134,16 @@ public class HomeFragment extends Fragment {
     }
 
     public int calculateSavedCount() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String userID = auth.getCurrentUser().getUid();
-        AtomicInteger notSavedCount = new AtomicInteger();
-        AtomicInteger savedCount = new AtomicInteger();
-
-        Task<QuerySnapshot> collectionReference = db.collection("adoptions").get().addOnCompleteListener(task -> {
+        AtomicInteger count = new AtomicInteger();
+        db.collection("Animals").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    notSavedCount.getAndIncrement();
-                }
-            } else {
-                Log.d("TAG", "Error getting documents: ", task.getException());
-            }
-        });
-
-        Task<QuerySnapshot> collectionReference2 = db.collection("Users").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    ArrayList<String> animalsAdopted = (ArrayList<String>) document.getData().get("animalsAdopted");
-                    if (animalsAdopted != null) {
-                        for (String animal : animalsAdopted) {
-                            savedCount.getAndIncrement();
-                        }
+                    if((boolean)document.get("isAdopted")){
+                        count.getAndIncrement();
                     }
                 }
-            } else {
-                Log.d("TAG", "Error getting documents: ", task.getException());
             }
         });
-
-
-        return savedCount.get();
+        return count.get();
     }
 }

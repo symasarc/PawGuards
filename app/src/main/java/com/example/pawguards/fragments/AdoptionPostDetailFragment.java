@@ -21,6 +21,8 @@ import com.example.pawguards.R;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,6 +34,10 @@ import java.util.ArrayList;
 public class AdoptionPostDetailFragment extends Fragment {
 
     public FirebaseStorage firebaseStorage;
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private Animal animal;
+    private String animalID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adoption_post_detail, container, false);
@@ -46,7 +52,9 @@ public class AdoptionPostDetailFragment extends Fragment {
         TextView textLocation = view.findViewById(R.id.textLocation);
         Button btnBack = view.findViewById(R.id.buttonBack);
         Button adoptButton = view.findViewById(R.id.buttonAdopt);
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,83 +63,65 @@ public class AdoptionPostDetailFragment extends Fragment {
             }
         });
 
+        DocumentReference animalRef = db.collection("Animals").document(animal.getAnimalRef().getId());
+
         adoptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                db.collection("Users").document(mAuth.getCurrentUser().getUid()).
+                        update("adoptionPosts", FieldValue.
+                                arrayUnion(db.collection("Animals").document(animalID)));
 
-                Animal animal; //GET ANIMAL INFO
-                FirebaseFirestore.getInstance().collection("Users").document(mAuth.getUid()).get().addOnSuccessListener(task -> {
-                    ArrayList<Animal> adoptionsMade = (ArrayList<Animal>) task.get("adoptionsMade");
-                    if (adoptionsMade == null) {
-                        adoptionsMade = new ArrayList<>();
-                    }
-
-                    //Postu kaldırmak lazım vallahi çok yoruldum
-
-                    //adoptionsMade.add(animal);
-
-                    FirebaseFirestore.getInstance().collection("Users").document(mAuth.getUid()).update("adoptionsMade", adoptionsMade);
-
-
-            });
+                db.collection("Animals").document(animal.getAnimalRef().getId()).update("isAdopted", true);
+                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
             }
         });
+
         // Get data from arguments
         Bundle args = getArguments();
         if (args != null) {
-            String title = args.getString("title", "");
-            String name = args.getString("name", "");
-            String age = args.getString("age", "");
-            String gender = args.getString("gender", "");
-            String description = args.getString("description", "");
-            String location = args.getString("location", "");
-            String image = args.getString("image", "");
+            db.collection("Animals").document(args.getString("animalRef")).get().addOnSuccessListener(task -> {
+                Animal an = task.toObject(Animal.class);
+                animalID= task.getId();
+                this.animal = an;
+                textTitle.setText(an.getTitle());
+                textName.setText(an.getName());
+                textAge.setText(an.getAge());
+                textGender.setText(an.getGender());
+                textDescription.setText(an.getDescription());
+                textLocation.setText(an.getLocation());
 
+                // Set image
+                new AsyncTask<Void, Void, Bitmap>() {
+                    @Override
+                    protected Bitmap doInBackground(Void... voids) {
+                        try {
 
-            // Set data to TextViews
-            textTitle.setText(title);
-            textName.setText(name);
-            textAge.setText(age);
-            textGender.setText(gender);
-            textDescription.setText(description);
-            textLocation.setText(location);
+                            //get profile picture address from user object and download it
+                            StorageReference picRef = firebaseStorage.getReferenceFromUrl(an.getAnimalPic());
+                            // Get the StreamDownloadTask
+                            StreamDownloadTask streamTask = picRef.getStream();
 
-            // Set image
-            firebaseStorage = FirebaseStorage.getInstance();
-
-            new AsyncTask<Void, Void, Bitmap>() {
-                @Override
-                protected Bitmap doInBackground(Void... voids) {
-                    try {
-
-                        //get profile picture address from user object and download it
-                        StorageReference picRef = firebaseStorage.getReferenceFromUrl(image);
-                        // Get the StreamDownloadTask
-                        StreamDownloadTask streamTask = picRef.getStream();
-
-                        // Await completion and retrieve the InputStream
-                        InputStream inputStream = Tasks.await(streamTask).getStream();
-                        return BitmapFactory.decodeStream(inputStream);
-                    } catch (Exception e) {
-                        Log.e("PhotoDownload", "Error downloading image", e);
-                        return null;
+                            // Await completion and retrieve the InputStream
+                            InputStream inputStream = Tasks.await(streamTask).getStream();
+                            return BitmapFactory.decodeStream(inputStream);
+                        } catch (Exception e) {
+                            Log.e("PhotoDownload", "Error downloading image", e);
+                            return null;
+                        }
                     }
-                }
 
-                @Override
-                protected void onPostExecute(Bitmap bitmap) {
-                    if (bitmap != null) {
-                        imageAnimal.setImageBitmap(bitmap);
-                    } else {
-                        // Handle download failure
+                    @Override
+                    protected void onPostExecute(Bitmap bitmap) {
+                        if (bitmap != null) {
+                            imageAnimal.setImageBitmap(bitmap);
+                        } else {
+                            // Handle download failure
+                        }
                     }
-                }
-            }.execute();
-
-
+                }.execute();
+            });
         }
-
         return view;
     }
 }

@@ -184,6 +184,7 @@ public class PostCreationFragment extends Fragment {
                 db.collection("Animals").add(animal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        documentReference.update("animalRef", documentReference);
                         //photo upload and updating user's adoptionPosts
                         if (animPicture.getDrawable() != null) {
                             StorageReference storageRef = firebaseStorage.getReference().child("images/Animals/" + documentReference.getId());
@@ -226,6 +227,7 @@ public class PostCreationFragment extends Fragment {
                                                 }
                                             });
                                             Toast.makeText(getActivity().getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                                            ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
                                         }
                                     });
                                 }
@@ -233,7 +235,7 @@ public class PostCreationFragment extends Fragment {
                         }
                     }
                 });
-                ((HomeActivity) getActivity()).changeFragment(new AdoptionCenterFragment());
+
             }
         });
 

@@ -7,17 +7,15 @@ public class AdoptionPost {
     private String description;
     private String location;
     private Animal animal;
-    private String availability;
 
-    public AdoptionPost(String image, String title, String description, String location, Animal animal, String availability) {
-        this.image = image;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.animal = animal;
-        this.availability = availability;
-
+    public AdoptionPost(Animal anim) {
+        this.image = anim.getAnimalPic();
+        this.title = anim.getTitle();
+        this.description = anim.getDescription();
+        this.location = anim.getLocation();
+        this.animal = anim;
     }
+
 
     public String getTitle() {
         return title;
@@ -58,17 +56,6 @@ public class AdoptionPost {
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
-
-
-
-    public String getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(String availability) {
-        this.availability = availability;
-    }
-
     @Override
     public String toString() {
         return "AdoptionPost{" +
@@ -77,7 +64,6 @@ public class AdoptionPost {
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", animal=" + animal +
-                ", availability='" + availability + '\'' +
                 '}';
     }
 

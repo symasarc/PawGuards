@@ -11,15 +11,16 @@ public class Animal {
     private boolean isAdopted;
     private DocumentReference whoAdopted=null;
     private DocumentReference whoPosted=null;
-    private String image;
+    private String animalPic;
     private String title;
     private String location;
+    private DocumentReference animalRef=null;
 
 
     public Animal() {
     }
 
-    public Animal(String name, int age, String type, String description, String gender, boolean isAdopted, DocumentReference whoAdopted, DocumentReference whoPosted, String image, String title, String location) {
+    public Animal(String name, int age, String type, String description, String gender, boolean isAdopted, DocumentReference whoAdopted, DocumentReference whoPosted, String animalPic, String title, String location, DocumentReference animalRef) {
         this.name = name;
         this.age = age;
         this.type = type;
@@ -28,9 +29,10 @@ public class Animal {
         this.isAdopted = isAdopted;
         this.whoAdopted = whoAdopted;
         this.whoPosted = whoPosted;
-        this.image = image;
+        this.animalPic = animalPic;
         this.title = title;
         this.location = location;
+        this.animalRef = animalRef;
     }
 
     public Animal(String name, int age, String type, String description, String gender, boolean isAdopted, DocumentReference whoAdopted, DocumentReference whoPosted) {
@@ -44,6 +46,7 @@ public class Animal {
         this.whoPosted = whoPosted;
     }
 
+
     public Animal(String name, String description, int age, String type, String gender) {
         this.name = name;
         this.age = age;
@@ -52,12 +55,12 @@ public class Animal {
         this.gender = gender;
     }
 
-    public String getImage() {
-        return image;
+    public String getAnimalPic() {
+        return animalPic;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.animalPic = animalPic;
     }
 
     public String getTitle() {
@@ -141,6 +144,14 @@ public class Animal {
 
     public void setWhoPosted(DocumentReference whoPosted) {
         this.whoPosted = whoPosted;
+    }
+
+    public DocumentReference getAnimalRef() {
+        return animalRef;
+    }
+
+    public void setAnimalRef(DocumentReference animalRef) {
+        this.animalRef = animalRef;
     }
 
     @Override

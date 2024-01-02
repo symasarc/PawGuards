@@ -110,24 +110,8 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
                      if (task.isSuccessful() && adoptionArrayList != null) {
                          for (QueryDocumentSnapshot document : task.getResult()) {
                              if (!((Boolean) document.get("isAdopted"))) {
-                                 System.out.println(document.getId() + " => " + document.getData());
-                                 String title = document.getString("title");
-                                 String description = document.getString("description");
-                                 String location = document.getString("location");
-                                 String animalName = document.getString("name");
-                                 int animalAge = document.getLong("age").intValue();
-                                 String animalType = document.getString("type");
-                                 String animalGender = document.getString("gender");
-                                 Boolean isAdopted = document.getBoolean("isAdopted");
-                                 DocumentReference whoAdopted = document.getDocumentReference("whoAdopted");
-                                 DocumentReference whoPosted = document.getDocumentReference("whoPosted");
-                                 String image = document.getString("animalPic");
-
-                                 Animal animal = new Animal(animalName,animalAge,animalType,description, animalGender, isAdopted, whoAdopted, whoPosted, image, title, location);
-
-                                 String availability = document.getString("availability");
-
-                                 AdoptionPost adoptionPost = new AdoptionPost(image, title, description, location, animal, availability);
+                                 Animal anim = document.toObject(Animal.class);
+                                 AdoptionPost adoptionPost = new AdoptionPost(anim);
                                  adoptionArrayList.add(adoptionPost);
                              }
                          }
@@ -149,12 +133,7 @@ public class AdoptionCenterFragment extends Fragment implements RecyclerViewInte
         AdoptionPost adoptionPost = adoptionArrayList.get(position);
 
         Bundle bundle = new Bundle();
-        bundle.putString("image", adoptionPost.getImage());
-        bundle.putString("title", adoptionPost.getTitle());
-        bundle.putString("name", adoptionPost.getAnimal().getName());
-        bundle.putString("age", String.valueOf(adoptionPost.getAnimal().getAge()));
-        bundle.putString("location", adoptionPost.getLocation());
-        bundle.putString("description", adoptionPost.getDescription());
+        bundle.putString("animalRef",adoptionPost.getAnimal().getAnimalRef().toString());
 
         adoptionPostDetailFragment.setArguments(bundle);
 
