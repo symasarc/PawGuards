@@ -130,7 +130,14 @@ public class DonationPostAdapter extends RecyclerView.Adapter<DonationPostAdapte
 
                     donationsMade.add(donation);
 
-                    donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 1);
+                    donationPost.setRaisedAmount(donationPost.getRaisedAmount() + 50);
+
+                    holder.textAmountRaised.setText("Amount raised: " + donationPost.getRaisedAmount());
+
+                    // Update "moneyRemaining" field in the user document
+                    FirebaseFirestore.getInstance().collection("Users").document(userID).update("moneyRemaining", task.getDouble("moneyRemaining") - 50);
+                    Toast.makeText(view.getContext(), "50 TL donated from your balance", Toast.LENGTH_SHORT).show();
+                    DonationPostFragment.updateWallet();
 
                     // Update "donationsMade" field in the user document
                     FirebaseFirestore.getInstance().collection("Users").document(userID).update("donationsMade", donationsMade);

@@ -51,7 +51,7 @@ import java.util.Map;
 public class DonationPostFragment extends Fragment {
 
         private RecyclerView recyclerView;
-        private TextView wallet;
+        private static TextView wallet;
         private DonationPostAdapter donationPostAdapter;
         private List<DonationPost> donationsArrayList;
         private FirebaseStorage firebaseStorage;
@@ -80,7 +80,7 @@ public class DonationPostFragment extends Fragment {
             return view;
         }
 
-        private void updateWallet() {
+        public static void updateWallet() {
             FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
