@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pawguards.HomeActivity;
 import com.example.pawguards.MainActivity;
@@ -101,7 +102,9 @@ public class MyAccountFragment extends Fragment {
         addBalanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                db.collection("Users").document(auth.getCurrentUser().getUid()).update("moneyRemaining", user.getMoneyRemaining() + 100);
+                Toast.makeText(getContext(), "100 TL added to your balance", Toast.LENGTH_SHORT).show();
+                updateUserInfo();
             }
         });
 
@@ -127,8 +130,8 @@ public class MyAccountFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
-        setListeners();
         updateUserInfo();
+        setListeners();
     }
 
     public void updateUserInfo() {
@@ -177,7 +180,10 @@ public class MyAccountFragment extends Fragment {
                         usernameTextView.setText(user.getName() + " " + user.getSurname());
                         locationTextView.setText("Turkey " + user.getCountry());
                         emailTextView.setText(user.getEmail());
-                        //currentBalanceTextView.setText(user.getM() + " TL");
+                        currentBalanceTextView.setText(user.getMoneyRemaining() + " TL");
+                        donationsMadeTextView.setText(user.getDonationsMade().size() + "TL");
+                        pawsSavedTextView.setText(user.getAnimalsAdopted().size() + " Paws Rescued");
+                        furEverHomePostsTextView.setText(user.getAdoptionPosts().size() + " Paws posted on FurEverHome");
 
                         Log.d("DocumentReference", "No such document");
                     }
