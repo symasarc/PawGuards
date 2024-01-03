@@ -254,10 +254,7 @@ public class EditProfileFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!imageRecievedFlag){
-            Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         if (etName.getText().toString().equals(user.getName()) && etsurname.getText().toString().equals(user.getSurname())
                 && etEmail.getText().toString().equals(user.getEmail()) && spCountry.getSelectedItem().toString().equals(user.getCountry())
@@ -268,19 +265,27 @@ public class EditProfileFragment extends Fragment {
 
         if (!etEmail.getText().toString().equals(user.getEmail())) {
             auth.getCurrentUser().updateEmail(etEmail.getText().toString());
+            imageRecievedFlag = true;
             db.collection("Users").document(auth.getCurrentUser().getUid()).update("name", etEmail.getText().toString());
         }
 
         if (!etName.getText().toString().equals(user.getName())) {
+            imageRecievedFlag = true;
             db.collection("Users").document(auth.getCurrentUser().getUid()).update("name", etName.getText().toString());
         }
         if (!etsurname.getText().toString().equals(user.getSurname())) {
+            imageRecievedFlag = true;
             db.collection("Users").document(auth.getCurrentUser().getUid()).update("surname", etsurname.getText().toString());
         }
         if (!spCountry.getSelectedItem().toString().equals(user.getCountry())) {
+            imageRecievedFlag = true;
             db.collection("Users").document(auth.getCurrentUser().getUid()).update("country", spCountry.getSelectedItem().toString());
         }
 
+        if(!imageRecievedFlag){
+            Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (ivProfilePicture.getDrawable() != null) {
             StorageReference storageRef = firebaseStorage.getReference().child("images/" + auth.getCurrentUser().getUid());
