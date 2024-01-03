@@ -151,6 +151,10 @@ public class PostCreationFragment extends Fragment {
                     etDescription.setError("Please input valid description");
                     return;
                 }
+                if (description.length() > 300) {
+                    etDescription.setError("Description must be at most 300 characters long");
+                    return;
+                }
 
                 if (location.isEmpty() || location.equals(" ")) {
                     Toast.makeText(getContext(), "Please select location", Toast.LENGTH_SHORT).show();

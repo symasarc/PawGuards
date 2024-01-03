@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.pawguards.fragments.CreateAccountFragment;
@@ -20,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment loginFragment = new LoginFragment();
         transaction.replace(R.id.container, loginFragment).commit();
-
+        getWindow().setNavigationBarColor(Color.BLACK);
     }
 }

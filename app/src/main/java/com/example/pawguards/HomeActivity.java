@@ -1,5 +1,6 @@
 package com.example.pawguards;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        getWindow().setNavigationBarColor(Color.BLACK);
         init();
         changeFragment(new HomeFragment());
 

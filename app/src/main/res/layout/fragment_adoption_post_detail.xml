@@ -1,24 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
+    android:background="@drawable/custom_card_background"
     android:orientation="vertical"
     android:padding="16dp">
 
     <!-- CardView for a better visual appearance -->
-    <androidx.cardview.widget.CardView
-        cardElevation="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="12dp"
-        app:cardBackgroundColor="@android:color/background_dark"
-        app:cardCornerRadius="@android:dimen/app_icon_size">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#3A345E"
             android:orientation="vertical"
             android:padding="12dp">
 
@@ -42,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/buttonBack"
-                    android:text="AVAIBLE"
+                    android:text="AVAILABLE"
                     android:textAlignment="center"
                     android:textColor="#12FF45"
                     android:textSize="32sp"
@@ -235,5 +227,4 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+</ScrollView>
