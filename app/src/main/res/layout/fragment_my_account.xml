@@ -15,9 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
+            android:layout_marginLeft="28dp"
             android:layout_marginTop="52dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginRight="28dp"
             android:orientation="horizontal">
 
             <!--            profile picture -->
@@ -110,9 +110,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginRight="24dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="15$"
+                    android:text="0 $"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -232,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="15$"
+                    android:text="0 $"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -263,7 +263,7 @@
                     android:id="@+id/tvPawsSaved"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -294,7 +294,7 @@
                     android:id="@+id/tvFurEverHomePosts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
