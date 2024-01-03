@@ -24,7 +24,7 @@
                     android:id="@+id/heartImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="360dp"
-                    android:src="@drawable/heart"></ImageView>
+                    android:src="@drawable/heart_last"></ImageView>
 
                 <TextView
                     android:id="@+id/savedCountText"
